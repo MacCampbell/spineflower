@@ -1,3 +1,12 @@
+#Files and directories
+1000_scripts
+1002_samples
+1004_alignments 
+1001_sequence 
+1003_stacks
+1005_paralogs
+reference
+
 # History files
 .Rhistory
 .Rapp.history
