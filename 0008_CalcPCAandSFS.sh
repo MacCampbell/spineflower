@@ -28,10 +28,13 @@
 
 ## SFS example command
 #./angsd -bam bam.filelist -doSaf 1 -out smallFolded -anc  chimpHg19.fa -GL 2 -minMapQ 10 -minQ 20
+#srun -p high -t 12:00:00 --mem=16G --nodes=2 --ntasks=6 $HOME/angsd/angsd -P 12 -bam 1005_paralogs/spineflower_80.bamlist -doSaf 1 -out 0008/with-paralogs -anc 1003_stacks/catalog.fa -GL 2 -minMapQ 10 -minQ 20
 srun $HOME/angsd/angsd -P 16 -bam 1005_paralogs/spineflower_80.bamlist -doSaf 1 -out 0008/with-paralogs -anc 1003_stacks/catalog.fa -GL 2 -minMapQ 10 -minQ 20
 srun $HOME/angsd/angsd -P 16 -bam 1005_paralogs/spineflower_80.bamlist -doSaf 1 -out 0008/with-out-paralogs -anc 1003_stacks/catalog.fa -GL 2 -minMapQ 10 -minQ 20 \
 -rf 0007/nonparalogous-contigs.tsv
 
+srun $HOME/angsd/misc/realSFS 0008/with-paralogs.saf.idx -maxIter 100 -P 16 >  0008/with-paralogs.sfs
+srun $HOME/angsd/misc/realSFS 0008/with-out-paralogs.saf.idx -maxIter 100 -P 16 >  0008/with-out-paralogs.sfs
 
 ## Beagle file generation 187 samples
 srun $HOME/angsd/angsd -P 16 -bam 1005_paralogs/spineflower_80.bamlist -out 0008/with-paralogs-pca -minInd 168 -GL 1 -doGlf 2  -doMajorMinor 1 -doMaf 2 \
