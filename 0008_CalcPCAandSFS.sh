@@ -28,8 +28,8 @@
 
 ## SFS example command
 #./angsd -bam bam.filelist -doSaf 1 -out smallFolded -anc  chimpHg19.fa -GL 2 -minMapQ 10 -minQ 20
-srun $HOME/angsd/angsd -P 16 -bam 1005_paralogs/spineflower_80.bamlist -doSaf 1 -out 0008/with-paralogs -anc 1003_stacks_catalog.fa -GL 2 -minMapQ 10 -minQ 20
-srun $HOME/angsd/angsd -P 16 -bam 1005_paralogs/spineflower_80.bamlist -doSaf 1 -out 0008/with-out-paralogs -anc 1003_stacks_catalog.fa -GL 2 -minMapQ 10 -minQ 20 \
+srun $HOME/angsd/angsd -P 16 -bam 1005_paralogs/spineflower_80.bamlist -doSaf 1 -out 0008/with-paralogs -anc 1003_stacks/catalog.fa -GL 2 -minMapQ 10 -minQ 20
+srun $HOME/angsd/angsd -P 16 -bam 1005_paralogs/spineflower_80.bamlist -doSaf 1 -out 0008/with-out-paralogs -anc 1003_stacks/catalog.fa -GL 2 -minMapQ 10 -minQ 20 \
 -rf 0007/nonparalogous-contigs.tsv
 
 
