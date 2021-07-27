@@ -20,7 +20,7 @@
 #SBATCH --time=2-12:00:00
 
 
-#SBATCH -o $HOME/spineflower/0008/job-%j.stdout
+#SBATCH -o /home/maccamp/spineflower/0008/0008.stdout
 
 
 ##Using 0007/nonparalogous-contigs.tsv as a region file let's generate a PCA and a SFS for sanity with and without the flagged regions
