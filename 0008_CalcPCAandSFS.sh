@@ -39,3 +39,7 @@ srun $HOME/angsd/angsd -P 16 -bam 1005_paralogs/spineflower_80.bamlist -out 0008
 
 srun $HOME/angsd/angsd -P 16 -bam 1005_paralogs/spineflower_80.bamlist -out 0008/with-out-paralogs-pca -minInd 168 -GL 1 -doGlf 2  -doMajorMinor 1 -doMaf 2 \
 -SNP_pval 1e-6 -minMapQ 10 -minQ 20 -rf 0007/nonparalogous-contigs.tsv
+
+## Generating cov matrix
+srun python $HOME/pcangsd/pcangsd.py -beagle 0008/with-paralogs-pca.beagle.gz -kinship -admix -o 0008/with-paralogs-pca -threads 10
+srun python $HOME/pcangsd/pcangsd.py -beagle 0008/with-out-paralogs-pca.beagle.gz -kinship -admix -o 0008/with-out-paralogs-pca -threads 10
