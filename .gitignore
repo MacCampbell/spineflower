@@ -1,9 +1,9 @@
 #Files and directories
 1000_scripts
-1002_samples
-1004_alignments 
 1001_sequence 
+1002_samples
 1003_stacks
+1004_alignments
 1005_paralogs
 reference
 
@@ -46,3 +46,4 @@ vignettes/*.pdf
 
 # R Environment Variables
 .Renviron
+.Rproj.user

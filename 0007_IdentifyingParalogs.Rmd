@@ -1,0 +1,59 @@
+---
+title: "0007_IdentifyParalogs.Rmd"
+author: "Mac Campbell"
+date: "July 27, 2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message = FALSE)
+```
+
+```{r}
+library(tidyverse)
+```
+
+## Pulling in ngsParalog output from 0006_FindParalogs.sh
+(1) sequence ID     
+(2) position in sequence (1-base indexed)    
+(3) -log null likelihood    
+(4) -log alternative likelihood    
+(5) likelihood ratio of mismapped reads    
+```{r}
+df<-read_tsv("0006/spineflower.paralogs", col_names = c("Sequence","Position","Null","Alt","LR"))
+```
+
+https://github.com/tplinderoth/ngsParalog
+
+```{r, eval=FALSE}
+lr <- read.table('./example/50n_2x.lr') # read in ngsParalog calcLR output
+lr$pval <- 0.5*pchisq(lr$V5,df=1,lower.tail=FALSE) # append column of p-values
+lr$pval.adj <- p.adjust(lr$pval, method="bonferroni") # p-values adjusted for number of tested sites
+
+# The 7th column of the lr data.frame is the adjusted p-value for rejecting the null hypothesis that reads
+# covering the site derive from a single locus. Of course you can use any p-value adjustment of your
+# choosing, e.g. "fdr".
+
+# generate list of sites that don't show evidence of mismapping at 0.05 significance level:
+qc.sites <- lr[-which(lr$pval.adj < 0.05),1:2]
+```
+
+Here:     
+
+```{r}
+df2 <- df %>% mutate(Pval=0.5*pchisq(LR, df=1, lower.tail=FALSE)) %>%
+  mutate(Padj = p.adjust(Pval, method = "bonferroni"))
+
+sites <- df2 %>% filter(Padj >= 0.05)
+plogs <- df2 %>% filter(Padj < 0.05) %>%
+  select(Sequence) %>% group_by(Sequence) %>% summarize(Count=n())
+
+#Remove sequences with paralogs nearby
+sites2<-sites %>% filter(!(Sequence %in% plogs$Sequence))
+
+#We have 12,995 non-paralogous contigs
+contiglist<-sites2 %>% select(Sequence) %>% unique()
+write_tsv(contiglist, "0007/nonparalogous-contigs.tsv", col_names = FALSE)
+```
+
+
