@@ -52,7 +52,7 @@ plogs <- df2 %>% filter(Padj < 0.05) %>%
 sites2<-sites %>% filter(!(Sequence %in% plogs$Sequence))
 
 #We have 12,995 non-paralogous contigs
-contiglist<-sites2 %>% select(Sequence) %>% unique()
+contiglist<-sites2 %>% select(Sequence) %>% unique() %>% mutate(Chroms=paste0(Sequence,":")) %>% select(Chroms)
 write_tsv(contiglist, "0007/nonparalogous-contigs.tsv", col_names = FALSE)
 ```
 
