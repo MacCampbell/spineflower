@@ -1,0 +1,418 @@
+NFGEL#,SampleID,Location,DateCollected,DateReceived,Latitude,Longitude,TissueType,Comments,SpeciesID,CommonName,Lyoph?,Original DNA Plate,Original Plate Well,[Mini] ng/ul,DNA PLATE,DNA PLATE POSITION,[DNA] ng/ul,DNA Yield (ug) (100ul vol)
+LF08,Pilot4-1,"Upper Las Virgenes Canyon OSP, Pop 4",5/21/14,5/23/14,,,Leaves,Pilot material for testing,,San Fernando Valley Spineflower,,No DNA Extracted, , ,,,,
+LF09,Pilot4-2,"Upper Las Virgenes Canyon OSP, Pop 4",5/21/14,5/23/14,,,Leaves,Pilot material for testing,,San Fernando Valley Spineflower,,Mini: not transferred, ,11.3,,,,
+LF10,Pilot4-3,"Upper Las Virgenes Canyon OSP, Pop 4",5/21/14,5/23/14,,,Leaves,Pilot material for testing,,San Fernando Valley Spineflower,,Mini: not transferred, ,13.7,,,,
+LF11,Pilot4-4,"Upper Las Virgenes Canyon OSP, Pop 4",5/21/14,5/23/14,,,Leaves,Pilot material for testing,,San Fernando Valley Spineflower,,No DNA Extracted, , ,,,,
+LF12,Pilot4-5,"Upper Las Virgenes Canyon OSP, Pop 4",5/21/14,5/23/14,,,Leaves,Pilot material for testing,,San Fernando Valley Spineflower,,Mini: not transferred, ,12.0,,,,
+LF13,Pilot4-6,"Upper Las Virgenes Canyon OSP, Pop 4",5/21/14,5/23/14,,,Leaves,Pilot material for testing,,San Fernando Valley Spineflower,,No DNA Extracted, , ,,,,
+LF14,Pilot4-7,"Upper Las Virgenes Canyon OSP, Pop 4",5/21/14,5/23/14,,,Leaves,Pilot material for testing,,San Fernando Valley Spineflower,,No DNA Extracted, , ,,,,
+LF15,Pilot4-8,"Upper Las Virgenes Canyon OSP, Pop 4",5/21/14,5/23/14,,,Leaves,Pilot material for testing,,San Fernando Valley Spineflower,,No DNA Extracted, , ,,,,
+LF16,Pilot4-9,"Upper Las Virgenes Canyon OSP, Pop 4",5/21/14,5/23/14,,,Leaves,Pilot material for testing,,San Fernando Valley Spineflower,,Mini: not transferred, ,11.2,,,,
+LF17,Pilot5-1,"Upper Las Virgenes Canyon OSP, Pop 5",5/21/14,5/23/14,,,Leaves,Pilot material for testing,,San Fernando Valley Spineflower,,No DNA Extracted, , ,,,,
+LF18,Pilot5-2,"Upper Las Virgenes Canyon OSP, Pop 5",5/21/14,5/23/14,,,Leaves,Pilot material for testing,,San Fernando Valley Spineflower,,No DNA Extracted, , ,,,,
+LF19,Pilot5-3,"Upper Las Virgenes Canyon OSP, Pop 5",5/21/14,5/23/14,,,Leaves,Pilot material for testing,,San Fernando Valley Spineflower,,No DNA Extracted, , ,,,,
+LF20,Pilot5-4,"Upper Las Virgenes Canyon OSP, Pop 5",5/21/14,5/23/14,,,Leaves,Pilot material for testing,,San Fernando Valley Spineflower,,Mini: not transferred, ,19.2,,,,
+LF21,Pilot5-5,"Upper Las Virgenes Canyon OSP, Pop 5",5/21/14,5/23/14,,,Leaves,Pilot material for testing,,San Fernando Valley Spineflower,,No DNA Extracted, , ,,,,
+LF22,Pilot5-6,"Upper Las Virgenes Canyon OSP, Pop 5",5/21/14,5/23/14,,,Leaves,Pilot material for testing,,San Fernando Valley Spineflower,,No DNA Extracted, , ,,,,
+LF23,Pilot5-7,"Upper Las Virgenes Canyon OSP, Pop 5",5/21/14,5/23/14,,,Leaves,Pilot material for testing,,San Fernando Valley Spineflower,,No DNA Extracted, , ,,,,
+LF24,Pilot6-1,"Upper Las Virgenes Canyon OSP, Pop 6",5/21/14,5/23/14,,,Leaves,Pilot material for testing,,San Fernando Valley Spineflower,,Mini: not transferred, ,30.5,,,,
+LF25,Pilot6-2,"Upper Las Virgenes Canyon OSP, Pop 6",5/21/14,5/23/14,,,Leaves,Pilot material for testing,,San Fernando Valley Spineflower,,No DNA Extracted, , ,,,,
+LF26,Pilot6-3,"Upper Las Virgenes Canyon OSP, Pop 6",5/21/14,5/23/14,,,Leaves,Pilot material for testing,,San Fernando Valley Spineflower,,No DNA Extracted, , ,,,,
+LF27,Pilot6-4,"Upper Las Virgenes Canyon OSP, Pop 6",5/21/14,5/23/14,,,Leaves,Pilot material for testing,,San Fernando Valley Spineflower,,Mini: not transferred, ,4.0,,,,
+LF28,Pilot6-5,"Upper Las Virgenes Canyon OSP, Pop 6",5/21/14,5/23/14,,,Leaves,Pilot material for testing,,San Fernando Valley Spineflower,,No DNA Extracted, , ,,,,
+LF29,Pilot6-6,"Upper Las Virgenes Canyon OSP, Pop 6",5/21/14,5/23/14,,,Leaves,Pilot material for testing,,San Fernando Valley Spineflower,,Mini: not transferred, ,5.0,,,,
+LF30,1-1,"Upper Las Virgenes Canyon OSP, Pop 1",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,578,C06,,Spineflower 1,A01,49.2,4.9
+LF31,1-2,"Upper Las Virgenes Canyon OSP, Pop 1",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,578,D06,,Spineflower 1,B01,59.5,5.9
+LF32,1-3,"Upper Las Virgenes Canyon OSP, Pop 1",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,578,E06,,Spineflower 1,C01,31.5,3.2
+LF33,1-4,"Upper Las Virgenes Canyon OSP, Pop 1",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,578,F06,,Spineflower 1,D01,27.2,2.7
+LF34,1-5,"Upper Las Virgenes Canyon OSP, Pop 1",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,578,G06,,Spineflower 1,E01,43.1,4.3
+LF35,1-6,"Upper Las Virgenes Canyon OSP, Pop 1",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,578,H06,,Spineflower 1,F01,46.7,4.7
+LF36,1-7,"Upper Las Virgenes Canyon OSP, Pop 1",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,578,A07,,Spineflower 1,G01,23.7,2.4
+LF37,1-8,"Upper Las Virgenes Canyon OSP, Pop 1",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,578,B07,,Spineflower 1,H01,28.5,2.8
+LF38,1-9,"Upper Las Virgenes Canyon OSP, Pop 1",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,578,C07,,Spineflower 1,A02,19.0,1.9
+LF39,1-10,"Upper Las Virgenes Canyon OSP, Pop 1",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,578,D07,,Spineflower 1,B02,29.0,2.9
+LF40,1-11,"Upper Las Virgenes Canyon OSP, Pop 1",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,578,E07,,Spineflower 1,C02,55.7,5.6
+LF41,1-12,"Upper Las Virgenes Canyon OSP, Pop 1",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,578,F07,,Spineflower 1,D02,45.0,4.5
+LF42,1-13,"Upper Las Virgenes Canyon OSP, Pop 1",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,578,G07,,Spineflower 1,E02,54.9,5.5
+LF43,1-14,"Upper Las Virgenes Canyon OSP, Pop 1",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,578,H07,,Spineflower 1,F02,45.6,4.6
+LF44,1-15,"Upper Las Virgenes Canyon OSP, Pop 1",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,578,A08,,Spineflower 1,G02,46.3,4.6
+LF45,1-16,"Upper Las Virgenes Canyon OSP, Pop 1",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,578,B08,,Spineflower 1,H02,51.8,5.2
+LF46,1-17,"Upper Las Virgenes Canyon OSP, Pop 1",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,578,C08,,Spineflower 1,A03,64.3,6.4
+LF47,1-18,"Upper Las Virgenes Canyon OSP, Pop 1",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,578,D08,,Spineflower 1,B03,54.5,5.5
+LF48,1-19,"Upper Las Virgenes Canyon OSP, Pop 1",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,578,E08,,Spineflower 1,C03,31.9,3.2
+LF49,1-20,"Upper Las Virgenes Canyon OSP, Pop 1",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,578,F08,,Spineflower 1,D03,66.0,6.6
+LF50,1-21,"Upper Las Virgenes Canyon OSP, Pop 1",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,578,G08,,Spineflower 1,E03,53.4,5.3
+LF51,2-1,"Upper Las Virgenes Canyon OSP, Pop 2",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,none avail.,578,H08,,Spineflower 1,F03,60.1,6.0
+LF52,2-2,"Upper Las Virgenes Canyon OSP, Pop 2",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,578,A09,,Spineflower 1,G03,23.6,2.4
+LF53,2-3,"Upper Las Virgenes Canyon OSP, Pop 2",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,none avail.,578,B09,,Spineflower 1,H03,34.7,3.5
+LF54,2-4,"Upper Las Virgenes Canyon OSP, Pop 2",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,578,C09,,Spineflower 1,A04,40.8,4.1
+LF55,2-5,"Upper Las Virgenes Canyon OSP, Pop 2",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,578,D09,,Spineflower 1,B04,4.8,0.5
+LF56,2-6,"Upper Las Virgenes Canyon OSP, Pop 2",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,none avail.,578,E09,,Spineflower 1,C04,45.9,4.6
+LF57,2-7,"Upper Las Virgenes Canyon OSP, Pop 2",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,none avail.,578,F09,,Spineflower 1,D04,42.8,4.3
+LF58,2-8,"Upper Las Virgenes Canyon OSP, Pop 2",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,578,G09,,Spineflower 1,E04,44.4,4.4
+LF59,2-9,"Upper Las Virgenes Canyon OSP, Pop 2",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,578,H09,,Spineflower 1,F04,51.1,5.1
+LF60,2-10,"Upper Las Virgenes Canyon OSP, Pop 2",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,578,A10,,Spineflower 1,G04,31.7,3.2
+LF61,2-11,"Upper Las Virgenes Canyon OSP, Pop 2",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,578,B10,,Spineflower 1,H04,80.7,8.1
+LF62,2-12,"Upper Las Virgenes Canyon OSP, Pop 2",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,578,C10,,Spineflower 1,A05,29.6,3.0
+LF63,2-13,"Upper Las Virgenes Canyon OSP, Pop 2",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,578,D10,,Spineflower 1,B05,54.2,5.4
+LF64,2-14,"Upper Las Virgenes Canyon OSP, Pop 2",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,578,E10,,Spineflower 1,C05,46.4,4.6
+LF65,2-15,"Upper Las Virgenes Canyon OSP, Pop 2",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,578,F10,,Spineflower 1,D05,58.4,5.8
+LF66,2-16,"Upper Las Virgenes Canyon OSP, Pop 2",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,578,G10,,Spineflower 1,E05,64.0,6.4
+LF67,2-17,"Upper Las Virgenes Canyon OSP, Pop 2",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,none avail.,578,H10,,Spineflower 1,F05,95.6,9.6
+LF68,2-18,"Upper Las Virgenes Canyon OSP, Pop 2",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,578,A11,,Spineflower 1,G05,37.2,3.7
+LF69,2-19,"Upper Las Virgenes Canyon OSP, Pop 2",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,none avail.,578,B11,,Spineflower 1,H05,45.2,4.5
+LF70,2-20,"Upper Las Virgenes Canyon OSP, Pop 2",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,578,C11,,Spineflower 1,A06,35.2,3.5
+LF71,2-21,"Upper Las Virgenes Canyon OSP, Pop 2",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,578,D11,,Spineflower 1,B06,35.8,3.6
+LF72,3-1,"Upper Las Virgenes Canyon OSP, Pop 3",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,none avail.,578,E11,,Spineflower 1,C06,42.7,4.3
+LF73,3-2,"Upper Las Virgenes Canyon OSP, Pop 3",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,none avail.,578,F11,,Spineflower 1,D06,87.9,8.8
+LF74,3-3,"Upper Las Virgenes Canyon OSP, Pop 3",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,578,G11,,Spineflower 1,E06,53.1,5.3
+LF75,3-4,"Upper Las Virgenes Canyon OSP, Pop 3",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,578,H11,,Spineflower 1,F06,47.3,4.7
+LF76,3-5,"Upper Las Virgenes Canyon OSP, Pop 3",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,578,A12,,Spineflower 1,G06,24.3,2.4
+LF77,3-6,"Upper Las Virgenes Canyon OSP, Pop 3",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,none avail.,578,B12,,Spineflower 1,H06,42.5,4.3
+LF78,3-7,"Upper Las Virgenes Canyon OSP, Pop 3",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,578,C12,,Spineflower 1,A07,24.0,2.4
+LF79,3-8,"Upper Las Virgenes Canyon OSP, Pop 3",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,578,D12,,Spineflower 1,B07,53.3,5.3
+LF80,3-9,"Upper Las Virgenes Canyon OSP, Pop 3",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,578,E12,,Spineflower 1,C07,28.6,2.9
+LF81,3-10,"Upper Las Virgenes Canyon OSP, Pop 3",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,578,F12,,Spineflower 1,D07,35.6,3.6
+LF82,3-11,"Upper Las Virgenes Canyon OSP, Pop 3",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,578,G12,,Spineflower 1,E07,27.2,2.7
+LG32,5-17,"Upper Las Virgenes Canyon OSP, Pop 5",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,A07,,Spineflower 1,F07,14.2,1.4
+LG33,5-18,"Upper Las Virgenes Canyon OSP, Pop 5",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,B07,,Spineflower 1,G07,7.6,0.8
+LG34,5-19,"Upper Las Virgenes Canyon OSP, Pop 5",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,C07,,Spineflower 1,H07,22.4,2.2
+LF86,3-15,"Upper Las Virgenes Canyon OSP, Pop 3",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,D01,,Spineflower 1,A08,28.8,2.9
+LF87,3-16,"Upper Las Virgenes Canyon OSP, Pop 3",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,E01,,Spineflower 1,B08,22.6,2.3
+LF88,3-17,"Upper Las Virgenes Canyon OSP, Pop 3",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,F01,,Spineflower 1,C08,32.3,3.2
+LF89,3-18,"Upper Las Virgenes Canyon OSP, Pop 3",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,G01,,Spineflower 1,D08,43.6,4.4
+LF90,3-19,"Upper Las Virgenes Canyon OSP, Pop 3",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,none avail.,579,H01,,Spineflower 1,E08,54.2,5.4
+LF91,3-20,"Upper Las Virgenes Canyon OSP, Pop 3",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,A02,,Spineflower 1,F08,27.5,2.8
+LF92,3-21,"Upper Las Virgenes Canyon OSP, Pop 3",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,B02,,Spineflower 1,G08,34.8,3.5
+LF93,3-22,"Upper Las Virgenes Canyon OSP, Pop 3",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,C02,,Spineflower 1,H08,27.2,2.7
+LF94,4-1,"Upper Las Virgenes Canyon OSP, Pop 4",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,D02,,Spineflower 1,A09,26.2,2.6
+LF95,4-2,"Upper Las Virgenes Canyon OSP, Pop 4",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,E02,,Spineflower 1,B09,27.2,2.7
+LF96,4-3,"Upper Las Virgenes Canyon OSP, Pop 4",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,F02,,Spineflower 1,C09,21.4,2.1
+LF97,4-4,"Upper Las Virgenes Canyon OSP, Pop 4",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,G02,,Spineflower 1,D09,29.6,3.0
+LF98,4-5,"Upper Las Virgenes Canyon OSP, Pop 4",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,H02,,Spineflower 1,E09,41.9,4.2
+LF99,4-6,"Upper Las Virgenes Canyon OSP, Pop 4",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,A03,,Spineflower 1,F09,34.9,3.5
+LG01,4-7,"Upper Las Virgenes Canyon OSP, Pop 4",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,B03,,Spineflower 1,G09,35.5,3.5
+LG02,4-8,"Upper Las Virgenes Canyon OSP, Pop 4",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,C03,,Spineflower 1,H09,27.5,2.7
+LG03,4-9,"Upper Las Virgenes Canyon OSP, Pop 4",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,D03,,Spineflower 1,A10,26.6,2.7
+LG04,4-10,"Upper Las Virgenes Canyon OSP, Pop 4",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,E03,,Spineflower 1,B10,16.3,1.6
+LG05,4-11,"Upper Las Virgenes Canyon OSP, Pop 4",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,F03,,Spineflower 1,C10,31.7,3.2
+LG06,4-12,"Upper Las Virgenes Canyon OSP, Pop 4",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,G03,,Spineflower 1,D10,36.3,3.6
+LG07,4-13,"Upper Las Virgenes Canyon OSP, Pop 4",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,H03,,Spineflower 1,E10,11.7,1.2
+LG08,4-14,"Upper Las Virgenes Canyon OSP, Pop 4",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,A04,,Spineflower 1,F10,38.6,3.9
+LG09,4-15,"Upper Las Virgenes Canyon OSP, Pop 4",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,B04,,Spineflower 1,G10,40.7,4.1
+LG10,4-16,"Upper Las Virgenes Canyon OSP, Pop 4",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,C04,,Spineflower 1,H10,24.9,2.5
+LG11,4-17,"Upper Las Virgenes Canyon OSP, Pop 4",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,D04,,Spineflower 1,A11,22.9,2.3
+LG12,4-18,"Upper Las Virgenes Canyon OSP, Pop 4",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,E04,,Spineflower 1,B11,20.8,2.1
+LG13,4-19,"Upper Las Virgenes Canyon OSP, Pop 4",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,F04,,Spineflower 1,C11,32.3,3.2
+LG14,4-20,"Upper Las Virgenes Canyon OSP, Pop 4",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,G04,,Spineflower 1,D11,20.8,2.1
+LG15,4-21,"Upper Las Virgenes Canyon OSP, Pop 4",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,H04,,Spineflower 1,E11,16.0,1.6
+LG24,5-9,"Upper Las Virgenes Canyon OSP, Pop 5",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,A06,,Spineflower 1,F11,13.4,1.3
+LG25,5-10,"Upper Las Virgenes Canyon OSP, Pop 5",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,B06,,Spineflower 1,G11,30.6,3.1
+LG26,5-11,"Upper Las Virgenes Canyon OSP, Pop 5",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,C06,,Spineflower 1,H11,19.8,2.0
+LG27,5-12,"Upper Las Virgenes Canyon OSP, Pop 5",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,D06,,Spineflower 1,A12,13.1,1.3
+LG28,5-13,"Upper Las Virgenes Canyon OSP, Pop 5",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,E06,,Spineflower 1,B12,38.3,3.8
+LG29,5-14,"Upper Las Virgenes Canyon OSP, Pop 5",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,F06,,Spineflower 1,C12,26.3,2.6
+LG30,5-15,"Upper Las Virgenes Canyon OSP, Pop 5",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,G06,,Spineflower 1,D12,40.2,4.0
+LG31,5-16,"Upper Las Virgenes Canyon OSP, Pop 5",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,H06,,Spineflower 1,E12,30.3,3.0
+LG16,5-1,"Upper Las Virgenes Canyon OSP, Pop 5",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,A05,,Spineflower 1,F12,37.0,3.7
+LG17,5-2,"Upper Las Virgenes Canyon OSP, Pop 5",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,B05,,Spineflower 1,G12,24.4,2.4
+LG18,5-3,"Upper Las Virgenes Canyon OSP, Pop 5",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,C05,,Spineflower 1,H12,13.2,1.3
+LG19,5-4,"Upper Las Virgenes Canyon OSP, Pop 5",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,D05,,Spineflower 2,A01,14.5,1.5
+LG20,5-5,"Upper Las Virgenes Canyon OSP, Pop 5",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,E05,,Spineflower 2,B01,26.3,2.6
+LG21,5-6,"Upper Las Virgenes Canyon OSP, Pop 5",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,F05,,Spineflower 2,C01,19.5,2.0
+LG22,5-7,"Upper Las Virgenes Canyon OSP, Pop 5",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,G05,,Spineflower 2,D01,29.7,3.0
+LG23,5-8,"Upper Las Virgenes Canyon OSP, Pop 5",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,H05,,Spineflower 2,E01,27.6,2.8
+LF83,3-12,"Upper Las Virgenes Canyon OSP, Pop 3",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,A01,,Spineflower 2,F01,2.5,0.2
+LF84,3-13,"Upper Las Virgenes Canyon OSP, Pop 3",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,B01,,Spineflower 2,G01,42.3,4.2
+LF85,3-14,"Upper Las Virgenes Canyon OSP, Pop 3",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,C01,,Spineflower 2,H01,52.7,5.3
+LG35,5-20,"Upper Las Virgenes Canyon OSP, Pop 5",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,D07,,Spineflower 2,A02,27.2,2.7
+LG36,5-21,"Upper Las Virgenes Canyon OSP, Pop 5",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,E07,,Spineflower 2,B02,19.3,1.9
+LG37,6-1,"Upper Las Virgenes Canyon OSP, Pop 6",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,F07,,Spineflower 2,C02,14.6,1.5
+LG38,6-2,"Upper Las Virgenes Canyon OSP, Pop 6",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,G07,,Spineflower 2,D02,24.0,2.4
+LG39,6-3,"Upper Las Virgenes Canyon OSP, Pop 6",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,H07,,Spineflower 2,E02,30.7,3.1
+LG40,6-4,"Upper Las Virgenes Canyon OSP, Pop 6",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,A08,,Spineflower 2,F02,20.9,2.1
+LG41,6-5,"Upper Las Virgenes Canyon OSP, Pop 6",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,B08,,Spineflower 2,G02,6.1,0.6
+LG42,6-6,"Upper Las Virgenes Canyon OSP, Pop 6",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,C08,,Spineflower 2,H02,14.0,1.4
+LG43,6-7,"Upper Las Virgenes Canyon OSP, Pop 6",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,D08,,Spineflower 2,A03,13.2,1.3
+LG44,6-8,"Upper Las Virgenes Canyon OSP, Pop 6",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,E08,,Spineflower 2,B03,21.0,2.1
+LG45,6-9,"Upper Las Virgenes Canyon OSP, Pop 6",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,F08,,Spineflower 2,C03,21.9,2.2
+LG46,6-10,"Upper Las Virgenes Canyon OSP, Pop 6",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,G08,,Spineflower 2,D03,31.6,3.2
+LG47,6-11,"Upper Las Virgenes Canyon OSP, Pop 6",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,H08,,Spineflower 2,E03,51.3,5.1
+LG48,6-12,"Upper Las Virgenes Canyon OSP, Pop 6",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,A09,,Spineflower 2,F03,18.9,1.9
+LG49,6-13,"Upper Las Virgenes Canyon OSP, Pop 6",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,B09,,Spineflower 2,G03,21.7,2.2
+LG50,6-14,"Upper Las Virgenes Canyon OSP, Pop 6",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,C09,,Spineflower 2,H03,20.7,2.1
+LG51,6-15,"Upper Las Virgenes Canyon OSP, Pop 6",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,D09,,Spineflower 2,A04,13.4,1.3
+LG52,6-16,"Upper Las Virgenes Canyon OSP, Pop 6",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,E09,,Spineflower 2,B04,19.9,2.0
+LG53,6-17,"Upper Las Virgenes Canyon OSP, Pop 6",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,F09,,Spineflower 2,C04,24.9,2.5
+LG54,6-18,"Upper Las Virgenes Canyon OSP, Pop 6",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,G09,,Spineflower 2,D04,39.3,3.9
+LG55,6-19,"Upper Las Virgenes Canyon OSP, Pop 6",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,H09,,Spineflower 2,E04,19.5,2.0
+LG56,6-20,"Upper Las Virgenes Canyon OSP, Pop 6",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,A10,,Spineflower 2,F04,27.5,2.7
+LG57,6-21,"Upper Las Virgenes Canyon OSP, Pop 6",5/21/14,5/23/14,,,Leaves,,,San Fernando Valley Spineflower,,579,B10,,Spineflower 2,G04,21.7,2.2
+LG58,Cs1-1,"Newhall Ranch, C. sticata Pop 1",5/21/14,5/23/14,,,Leaves,"Different Pop 1 from SFVSF; may be >1 plant per bag. Prep only 1, lyoph all samples individually.",,Turkish rugging,,579,C10,,Spineflower 2,H04,30.6,3.1
+LG59,Cs2-1,"Newhall Ranch, C. sticata Pop 2",5/21/14,5/23/14,,,Leaves,"Different Pop 2 from SFVSF; may be >1 plant per bag. Prep only 1, lyoph all samples individually.",,Turkish rugging,,579,D10,,Spineflower 2,A05,42.2,4.2
+LG60,Cs3-1,"Newhall Ranch, C. sticata Pop 3",5/21/14,5/23/14,,,Leaves,"Different Pop 3 from SFVSF; may be >1 plant per bag. Prep only 1, lyoph all samples individually.",,Turkish rugging,,579,E10,,Spineflower 2,B05,26.3,2.6
+LG61,Cs3-2,"Newhall Ranch, C. sticata Pop 3",5/21/14,5/23/14,,,Leaves,"Different Pop 3 from SFVSF; may be >1 plant per bag. Prep only 1, lyoph all samples individually.",,Turkish rugging,,579,F10,,Spineflower 2,C05,30.4,3.0
+LG62,Cs3-3,"Newhall Ranch, C. sticata Pop 3",5/21/14,5/23/14,,,Leaves,"Different Pop 3 from SFVSF; may be >1 plant per bag. Prep only 1, lyoph all samples individually.",,Turkish rugging,,579,G10,,Spineflower 2,D05,37.5,3.8
+LG63,Cs3-4,"Newhall Ranch, C. sticata Pop 3",5/21/14,5/23/14,,,Leaves,"Different Pop 3 from SFVSF; may be >1 plant per bag. Prep only 1, lyoph all samples individually.",,Turkish rugging,,579,H10,,Spineflower 2,E05,23.5,2.4
+LG64,Cs3-5,"Newhall Ranch, C. sticata Pop 3",5/21/14,5/23/14,,,Leaves,"Different Pop 3 from SFVSF; may be >1 plant per bag. Prep only 1, lyoph all samples individually.",,Turkish rugging,,579,A11,,Spineflower 2,F05,39.2,3.9
+LG65,Cs4-1,"Newhall Ranch, C. sticata Pop 4",5/21/14,5/23/14,,,Leaves,"Different Pop 4 from SFVSF; may be >1 plant per bag. Prep only 1, lyoph all samples individually.",,Turkish rugging,,579,B11,,Spineflower 2,G05,48.9,4.9
+LG66,Cs4-2,"Newhall Ranch, C. sticata Pop 4",5/21/14,5/23/14,,,Leaves,"Different Pop 4 from SFVSF; may be >1 plant per bag. Prep only 1, lyoph all samples individually.",,Turkish rugging,,579,C11,,Spineflower 2,H05,23.2,2.3
+LG67,Cs4-3,"Newhall Ranch, C. sticata Pop 4",5/21/14,5/23/14,,,Leaves,"Different Pop 4 from SFVSF; may be >1 plant per bag. Prep only 1, lyoph all samples individually.",,Turkish rugging,,579,D11,,Spineflower 2,A06,29.6,3.0
+LG68,Cs4-4,"Newhall Ranch, C. sticata Pop 4",5/21/14,5/23/14,,,Leaves,"Different Pop 4 from SFVSF; may be >1 plant per bag. Prep only 1, lyoph all samples individually.",,Turkish rugging,,579,E11,,Spineflower 2,B06,34.1,3.4
+LG69,Cs4-5,"Newhall Ranch, C. sticata Pop 4",5/21/14,5/23/14,,,Leaves,"Different Pop 4 from SFVSF; may be >1 plant per bag. Prep only 1, lyoph all samples individually.",,Turkish rugging,,579,F11,,Spineflower 2,C06,41.2,4.1
+LG70,Cs5-1,"Newhall Ranch, C. sticata Pop 5",5/21/14,5/23/14,,,Leaves,"Different Pop 5 from SFVSF; may be >1 plant per bag. Prep only 1, lyoph all samples individually.",,Turkish rugging,,582,A01,,Spineflower 2,D06,36.8,3.7
+LG71,Cs5-2,"Newhall Ranch, C. sticata Pop 5",5/21/14,5/23/14,,,Leaves,"Different Pop 5 from SFVSF; may be >1 plant per bag. Prep only 1, lyoph all samples individually.",,Turkish rugging,,579,H11,,Spineflower 2,E06,43.7,4.4
+LG72,Cs5-3,"Newhall Ranch, C. sticata Pop 5",5/21/14,5/23/14,,,Leaves,"Different Pop 5 from SFVSF; may be >1 plant per bag. Prep only 1, lyoph all samples individually.",,Turkish rugging,,579,A12,,Spineflower 2,F06,28.6,2.9
+LG73,Cs5-4,"Newhall Ranch, C. sticata Pop 5",5/21/14,5/23/14,,,Leaves,"Different Pop 5 from SFVSF; may be >1 plant per bag. Prep only 1, lyoph all samples individually.",,Turkish rugging,,582,B01,,Spineflower 2,G06,14.6,1.5
+LG74,Cs5-5,"Newhall Ranch, C. sticata Pop 5",5/21/14,5/23/14,,,Leaves,"Different Pop 5 from SFVSF; may be >1 plant per bag. Prep only 1, lyoph all samples individually.",,Turkish rugging,,579,C12,,Spineflower 2,H06,20.1,2.0
+LG75,Cs5-6,"Newhall Ranch, C. sticata Pop 5",5/21/14,5/23/14,,,Leaves,"Different Pop 5 from SFVSF; may be >1 plant per bag. Prep only 1, lyoph all samples individually.",,Turkish rugging,,579,D12,,Spineflower 2,A07,29.2,2.9
+LG76,Cs5-7,"Newhall Ranch, C. sticata Pop 5",5/21/14,5/23/14,,,Leaves,"Different Pop 5 from SFVSF; may be >1 plant per bag. Prep only 1, lyoph all samples individually.",,Turkish rugging,,579,E12,,Spineflower 2,B07,29.5,3.0
+LG77,Cs5-8,"Newhall Ranch, C. sticata Pop 5",5/21/14,5/23/14,,,Leaves,"Different Pop 5 from SFVSF; may be >1 plant per bag. Prep only 1, lyoph all samples individually.",,Turkish rugging,,579,F12,,Spineflower 2,C07,26.3,2.6
+LX52,F9,"Newhall, Valencia CC",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+LX53,F9,"Newhall, Valencia CC",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+LX54,F9,"Newhall, Valencia CC",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+LX55,F9,"Newhall, Valencia CC",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+LX56,F9,"Newhall, Valencia CC",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+LX57,F2,"Newhall, Entrada",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+LX58,F2,"Newhall, Entrada",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+LX59,F2,"Newhall, Entrada",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+LX60,F2,"Newhall, Entrada",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+LX61,F2,"Newhall, Entrada",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+LX62,F13,"Newhall, Grapevile Mesa",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+LX63,F13,"Newhall, Grapevile Mesa",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+LX64,F13,"Newhall, Grapevile Mesa",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+LX65,F13,"Newhall, Grapevile Mesa",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+LX66,F13,"Newhall, Grapevile Mesa",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+LX67,F5,"Newhall, Airport Mesa",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+LX68,F5,"Newhall, Airport Mesa",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+LX69,F5,"Newhall, Airport Mesa",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+LX70,F5,"Newhall, Airport Mesa",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+LX71,F5,"Newhall, Airport Mesa",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+LX72,F20,"Newhall, San Martinez Grande",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+LX73,F20,"Newhall, San Martinez Grande",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+LX74,F20,"Newhall, San Martinez Grande",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+LX75,F20,"Newhall, San Martinez Grande",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+LX76,F20,"Newhall, San Martinez Grande",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+LX77,,"Ahmundsen = Laskey Mesa, Site 1",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+LX78,,"Ahmundsen = Laskey Mesa, Site 1",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+LX79,,"Ahmundsen = Laskey Mesa, Site 1",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+LX80,,"Ahmundsen = Laskey Mesa, Site 1",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+LX81,,"Ahmundsen = Laskey Mesa, Site 1",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+LX82,,"Ahmundsen = Laskey Mesa, Site 2",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+LX83,,"Ahmundsen = Laskey Mesa, Site 2",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+LX84,,"Ahmundsen = Laskey Mesa, Site 2",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+LX85,,"Ahmundsen = Laskey Mesa, Site 2",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+LX86,,"Ahmundsen = Laskey Mesa, Site 2",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+LX87,,"Ahmundsen = Laskey Mesa, Site 4",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+LX88,,"Ahmundsen = Laskey Mesa, Site 4",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+LX89,,"Ahmundsen = Laskey Mesa, Site 4",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+LX90,,"Ahmundsen = Laskey Mesa, Site 4",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+LX91,,"Ahmundsen = Laskey Mesa, Site 4",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+LX92,,"Ahmundsen = Laskey Mesa, Site 5",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+LX93,,"Ahmundsen = Laskey Mesa, Site 5",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+LX94,,"Ahmundsen = Laskey Mesa, Site 5",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+LX95,,"Ahmundsen = Laskey Mesa, Site 5",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+LX96,,"Ahmundsen = Laskey Mesa, Site 5",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+LX97,,"Ahmundsen = Laskey Mesa, Site 6",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+LX98,,"Ahmundsen = Laskey Mesa, Site 6",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+LX99,,"Ahmundsen = Laskey Mesa, Site 6",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+LY01,,"Ahmundsen = Laskey Mesa, Site 6",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+LY02,,"Ahmundsen = Laskey Mesa, Site 6",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+MA30,F2,"Newhall, Entrada",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+MA31,F2,"Newhall, Entrada",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+MA32,F2,"Newhall, Entrada",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+MA33,F2,"Newhall, Entrada",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+MA34,F13,"Newhall, Grapevile Mesa",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+MA35,F13,"Newhall, Grapevile Mesa",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+MA36,F13,"Newhall, Grapevile Mesa",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+MA37,F13,"Newhall, Grapevile Mesa",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+MA38,F5,"Newhall, Airport Mesa",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+MA39,F5,"Newhall, Airport Mesa",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+MA40,F5,"Newhall, Airport Mesa",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+MA41,F5,"Newhall, Airport Mesa",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+MA42,F20,"Newhall, San Martinez Grande",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+MA43,F20,"Newhall, San Martinez Grande",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+MA44,F20,"Newhall, San Martinez Grande",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+MA45,F20,"Newhall, San Martinez Grande",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+MA46,F9,"Newhall, Valencia CC",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+MA47,F9,"Newhall, Valencia CC",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+MA48,F9,"Newhall, Valencia CC",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+MA49,F9,"Newhall, Valencia CC",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+MA50,F9,"Newhall, Valencia CC",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+MA51,,"Ahmundsen = Laskey Mesa, Site 1",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+MA52,,"Ahmundsen = Laskey Mesa, Site 1",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+MA53,,"Ahmundsen = Laskey Mesa, Site 1",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+MA54,,"Ahmundsen = Laskey Mesa, Site 1",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+MA55,,"Ahmundsen = Laskey Mesa, Site 4",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+MA56,,"Ahmundsen = Laskey Mesa, Site 4",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+MA57,,"Ahmundsen = Laskey Mesa, Site 4",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+MA58,,"Ahmundsen = Laskey Mesa, Site 4",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+MA59,,"Ahmundsen = Laskey Mesa, Site 5",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+MA60,,"Ahmundsen = Laskey Mesa, Site 5",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+MA61,,"Ahmundsen = Laskey Mesa, Site 5",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+MA62,,"Ahmundsen = Laskey Mesa, Site 5",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+MA63,,"Ahmundsen = Laskey Mesa, Site 6",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+MA64,,"Ahmundsen = Laskey Mesa, Site 6",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+MA65,,"Ahmundsen = Laskey Mesa, Site 6",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+MA66,,"Ahmundsen = Laskey Mesa, Site 6",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+MA67,,"Ahmundsen = Laskey Mesa, Site 6",30-31 July 2014,,,,seed from single mom,,,,,No DNA Extracted,,,,,,
+MA68,F5,"Newhall, Airport Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,H04,,Spineflower 2,D07,30.6,3.1
+MA69,F5,"Newhall, Airport Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,A05,,Spineflower 2,E07,18.6,1.9
+MA70,F5,"Newhall, Airport Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,B05,,Spineflower 2,F07,22.7,2.3
+MA71,F5,"Newhall, Airport Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,C05,,Spineflower 2,G07,28.7,2.9
+MA72,F5,"Newhall, Airport Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,D05,,Spineflower 2,H07,27.5,2.7
+MA73,F5,"Newhall, Airport Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,E05,,Spineflower 2,A08,49.3,4.9
+MA74,F5,"Newhall, Airport Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,F05,,Spineflower 2,B08,17.0,1.7
+MA75,F5,"Newhall, Airport Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,G05,,Spineflower 2,C08,72.3,7.2
+MA76,F5,"Newhall, Airport Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,H05,,Spineflower 2,D08,19.0,1.9
+MA77,F5,"Newhall, Airport Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,A06,,Spineflower 2,E08,28.4,2.8
+MA78,F5,"Newhall, Airport Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,B06,,Spineflower 2,F08,39.3,3.9
+MA79,F5,"Newhall, Airport Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,C06,,Spineflower 2,G08,46.1,4.6
+MA80,F5,"Newhall, Airport Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,D06,,Spineflower 2,H08,53.0,5.3
+MA81,F5,"Newhall, Airport Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,E06,,Spineflower 2,A09,28.1,2.8
+MA82,F5,"Newhall, Airport Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,F06,,Spineflower 2,B09,34.8,3.5
+MA83,F5,"Newhall, Airport Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,G06,,Spineflower 2,C09,28.7,2.9
+MA84,F5,"Newhall, Airport Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,H06,,Spineflower 2,D09,22.0,2.2
+MA85,F5,"Newhall, Airport Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,A07,,Spineflower 2,E09,31.6,3.2
+MA86,F5,"Newhall, Airport Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,B07,,Spineflower 2,F09,32.9,3.3
+MA87,F5,"Newhall, Airport Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,C07,,Spineflower 2,G09,75.2,7.5
+MA88,F13,"Newhall, Grapevile Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,D07,,Spineflower 2,H09,40.5,4.0
+MA89,F13,"Newhall, Grapevile Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,E07,,Spineflower 2,A10,24.6,2.5
+MA90,F13,"Newhall, Grapevile Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,F07,,Spineflower 2,B10,21.0,2.1
+MA91,F13,"Newhall, Grapevile Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,G07,,Spineflower 2,C10,37.3,3.7
+MA92,F13,"Newhall, Grapevile Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,H07,,Spineflower 2,D10,25.1,2.5
+MA93,F13,"Newhall, Grapevile Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,A08,,Spineflower 2,E10,67.7,6.8
+MA94,F13,"Newhall, Grapevile Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,B08,,Spineflower 2,F10,27.9,2.8
+MA95,F13,"Newhall, Grapevile Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,C08,,Spineflower 2,G10,78.2,7.8
+MA96,F13,"Newhall, Grapevile Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,D08,,Spineflower 2,H10,43.5,4.3
+MA97,F13,"Newhall, Grapevile Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,E08,,Spineflower 2,A11,43.8,4.4
+MA98,F13,"Newhall, Grapevile Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,G08,,Spineflower 2,B11,56.6,5.7
+MA99,F13,"Newhall, Grapevile Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,F08,,Spineflower 2,C11,39.5,3.9
+MB01,F13,"Newhall, Grapevile Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,H08,,Spineflower 2,D11,36.7,3.7
+MB02,F13,"Newhall, Grapevile Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,A09,,Spineflower 2,E11,52.6,5.3
+MB03,F13,"Newhall, Grapevile Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,B09,,Spineflower 2,F11,24.7,2.5
+MB04,F13,"Newhall, Grapevile Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,C09,,Spineflower 2,G11,63.7,6.4
+MB05,F13,"Newhall, Grapevile Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,D09,,Spineflower 2,H11,40.2,4.0
+MB06,F13,"Newhall, Grapevile Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,E09,,Spineflower 2,A12,40.1,4.0
+MB07,F13,"Newhall, Grapevile Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,F09,,Spineflower 2,B12,60.4,6.0
+MB08,F13,"Newhall, Grapevile Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,G09,,Spineflower 2,C12,58.4,5.8
+MB09,F14,"Newhall, Long Canyon",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,H09,,Spineflower 2,D12,23.0,2.3
+MB10,F14,"Newhall, Long Canyon",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,A10,,Spineflower 2,E12,25.4,2.5
+MB11,F14,"Newhall, Long Canyon",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,B10,,Spineflower 2,F12,45.4,4.5
+MB12,F14,"Newhall, Long Canyon",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,C10,,Spineflower 2,G12,26.2,2.6
+MB13,F14,"Newhall, Long Canyon",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,D10,,Spineflower 2,H12,30.2,3.0
+MB14,F14,"Newhall, Long Canyon",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,E10,,Spineflower 3,A01,41.1,4.1
+MB15,F14,"Newhall, Long Canyon",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,F10,,Spineflower 3,B01,28.8,2.9
+MB16,F14,"Newhall, Long Canyon",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,G10,,Spineflower 3,C01,38.6,3.9
+MB17,F14,"Newhall, Long Canyon",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,H10,,Spineflower 3,D01,13.3,1.3
+MB18,F14,"Newhall, Long Canyon",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,A11,,Spineflower 3,E01,28.9,2.9
+MB19,F14,"Newhall, Long Canyon",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,B11,,Spineflower 3,F01,27.3,2.7
+MB20,F14,"Newhall, Long Canyon",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,C11,,Spineflower 3,G01,11.8,1.2
+MB21,F14,"Newhall, Long Canyon",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,D11,,Spineflower 3,H01,44.1,4.4
+MB22,F14,"Newhall, Long Canyon",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,E11,,Spineflower 3,A02,64.8,6.5
+MB23,F14,"Newhall, Long Canyon",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,F11,,Spineflower 3,B02,33.5,3.4
+MB24,F14,"Newhall, Long Canyon",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,G11,,Spineflower 3,C02,43.6,4.4
+MB25,F14,"Newhall, Long Canyon",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,H11,,Spineflower 3,D02,28.3,2.8
+MB26,F14,"Newhall, Long Canyon",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,A12,,Spineflower 3,E02,18.8,1.9
+MB27,F14,"Newhall, Long Canyon",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,B12,,Spineflower 3,F02,18.1,1.8
+MB28,F14,"Newhall, Long Canyon",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,C12,,Spineflower 3,G02,26.5,2.6
+MB29,F18,"Newhall, Protrero Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,D12,,Spineflower 3,H02,30.4,3.0
+MB30,F18,"Newhall, Protrero Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,E12,,Spineflower 3,A03,26.0,2.6
+MB31,F18,"Newhall, Protrero Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,F12,,Spineflower 3,B03,23.3,2.3
+MB32,F18,"Newhall, Protrero Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,G12,,Spineflower 3,C03,15.3,1.5
+MB33,F18,"Newhall, Protrero Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,603,H12,,Spineflower 3,D03,18.3,1.8
+MB34,F18,"Newhall, Protrero Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,A01,,Spineflower 3,E03,29.9,3.0
+MB35,F18,"Newhall, Protrero Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,B01,,Spineflower 3,F03,31.2,3.1
+MB36,F18,"Newhall, Protrero Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,C01,,Spineflower 3,G03,20.9,2.1
+MB37,F18,"Newhall, Protrero Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,D01,,Spineflower 3,H03,38.0,3.8
+MB38,F18,"Newhall, Protrero Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,E01,,Spineflower 3,A04,24.5,2.5
+MB39,F18,"Newhall, Protrero Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,F01,,Spineflower 3,B04,22.0,2.2
+MB40,F18,"Newhall, Protrero Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,G01,,Spineflower 3,C04,31.3,3.1
+MB41,F18,"Newhall, Protrero Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,H01,,Spineflower 3,D04,18.6,1.9
+MB42,F18,"Newhall, Protrero Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,A02,,Spineflower 3,E04,24.6,2.5
+MB43,F18,"Newhall, Protrero Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,B02,,Spineflower 3,F04,35.3,3.5
+MB44,F18,"Newhall, Protrero Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,C02,,Spineflower 3,G04,38.4,3.8
+MB45,F18,"Newhall, Protrero Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,D02,,Spineflower 3,H04,33.6,3.4
+MB46,F18,"Newhall, Protrero Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,E02,,Spineflower 3,A05,89.0,8.9
+MB47,F18,"Newhall, Protrero Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,F02,,Spineflower 3,B05,23.3,2.3
+MB48,F18,"Newhall, Protrero Mesa",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,G02,,Spineflower 3,C05,14.5,1.5
+MB49,F20,"Newhall, San Martinez Grande",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,H02,,Spineflower 3,D05,33.7,3.4
+MB50,F20,"Newhall, San Martinez Grande",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,A03,,Spineflower 3,E05,17.1,1.7
+MB51,F20,"Newhall, San Martinez Grande",1-2 April 2015,3-Apr-15,,,leaves,NO TISSUE,,,,608,B03,,Spineflower 3,F05,0.0,0.0
+MB52,F20,"Newhall, San Martinez Grande",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,C03,,Spineflower 3,G05,28.6,2.9
+MB53,F20,"Newhall, San Martinez Grande",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,D03,,Spineflower 3,H05,19.8,2.0
+MB54,F20,"Newhall, San Martinez Grande",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,E03,,Spineflower 3,A06,38.5,3.9
+MB55,F20,"Newhall, San Martinez Grande",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,F03,,Spineflower 3,B06,24.3,2.4
+MB56,F20,"Newhall, San Martinez Grande",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,G03,,Spineflower 3,C06,28.0,2.8
+MB57,F20,"Newhall, San Martinez Grande",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,H03,,Spineflower 3,D06,15.0,1.5
+MB58,F20,"Newhall, San Martinez Grande",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,A04,,Spineflower 3,E06,39.1,3.9
+MB59,F20,"Newhall, San Martinez Grande",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,B04,,Spineflower 3,F06,31.2,3.1
+MB60,F20,"Newhall, San Martinez Grande",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,C04,,Spineflower 3,G06,22.6,2.3
+MB61,F20,"Newhall, San Martinez Grande",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,D04,,Spineflower 3,H06,53.6,5.4
+MB62,F20,"Newhall, San Martinez Grande",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,E04,,Spineflower 3,A07,40.8,4.1
+MB63,F20,"Newhall, San Martinez Grande",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,F04,,Spineflower 3,B07,39.3,3.9
+MB64,F20,"Newhall, San Martinez Grande",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,G04,,Spineflower 3,C07,44.7,4.5
+MB65,F20,"Newhall, San Martinez Grande",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,H04,,Spineflower 3,D07,39.3,3.9
+MB66,F20,"Newhall, San Martinez Grande",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,A05,,Spineflower 3,E07,17.9,1.8
+MB67,F20,"Newhall, San Martinez Grande",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,B05,,Spineflower 3,F07,16.7,1.7
+MB68,F20,"Newhall, San Martinez Grande",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,C05,,Spineflower 3,G07,43.9,4.4
+MB69,F9,"Newhall, Valencia CC",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,D05,,Spineflower 3,H07,15.2,1.5
+MB70,F9,"Newhall, Valencia CC",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,E05,,Spineflower 3,A08,25.7,2.6
+MB71,F9,"Newhall, Valencia CC",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,F05,,Spineflower 3,B08,27.5,2.8
+MB72,F9,"Newhall, Valencia CC",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,G05,,Spineflower 3,C08,21.6,2.2
+MB73,F9,"Newhall, Valencia CC",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,H05,,Spineflower 3,D08,14.2,1.4
+MB74,F9,"Newhall, Valencia CC",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,A06,,Spineflower 3,E08,2.4,0.2
+MB75,F9,"Newhall, Valencia CC",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,B06,,Spineflower 3,F08,30.8,3.1
+MB76,F9,"Newhall, Valencia CC",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,C06,,Spineflower 3,G08,34.2,3.4
+MB77,F9,"Newhall, Valencia CC",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,D06,,Spineflower 3,H08,46.7,4.7
+MB78,F9,"Newhall, Valencia CC",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,E06,,Spineflower 3,A09,56.4,5.6
+MB79,F9,"Newhall, Valencia CC",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,F06,,Spineflower 3,B09,45.8,4.6
+MB80,F9,"Newhall, Valencia CC",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,G06,,Spineflower 3,C09,40.4,4.0
+MB81,F9,"Newhall, Valencia CC",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,H06,,Spineflower 3,D09,33.9,3.4
+MB82,F9,"Newhall, Valencia CC",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,A07,,Spineflower 3,E09,26.1,2.6
+MB83,F9,"Newhall, Valencia CC",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,B07,,Spineflower 3,F09,33.7,3.4
+MB84,F9,"Newhall, Valencia CC",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,C07,,Spineflower 3,G09,25.8,2.6
+MB85,F9,"Newhall, Valencia CC",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,D07,,Spineflower 3,H09,24.6,2.5
+MB86,F9,"Newhall, Valencia CC",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,E07,,Spineflower 3,A10,52.7,5.3
+MB87,F9,"Newhall, Valencia CC",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,F07,,Spineflower 3,B10,17.4,1.7
+MB88,F9,"Newhall, Valencia CC",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,G07,,Spineflower 3,C10,48.5,4.9
+MB89,F2,"Newhall, Entrada",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,H07,,Spineflower 3,D10,16.1,1.6
+MB90,F2,"Newhall, Entrada",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,A08,,Spineflower 3,E10,13.5,1.4
+MB91,F2,"Newhall, Entrada",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,B08,,Spineflower 3,F10,15.1,1.5
+MB92,F2,"Newhall, Entrada",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,C08,,Spineflower 3,G10,14.8,1.5
+MB93,F2,"Newhall, Entrada",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,D08,,Spineflower 3,H10,23.0,2.3
+MB94,F2,"Newhall, Entrada",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,E08,,Spineflower 3,A11,19.2,1.9
+MB95,F2,"Newhall, Entrada",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,F08,,Spineflower 3,B11,27.5,2.7
+MB96,F2,"Newhall, Entrada",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,G08,,Spineflower 3,C11,37.9,3.8
+MB97,F2,"Newhall, Entrada",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,H08,,Spineflower 3,D11,18.7,1.9
+MB98,F2,"Newhall, Entrada",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,A09,,Spineflower 3,E11,22.9,2.3
+MB99,F2,"Newhall, Entrada",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,B09,,Spineflower 3,F11,17.3,1.7
+MC01,F2,"Newhall, Entrada",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,C09,,Spineflower 3,G11,68.4,6.8
+MC02,F2,"Newhall, Entrada",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,D09,,Spineflower 3,H11,43.3,4.3
+MC03,F2,"Newhall, Entrada",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,E09,,Spineflower 3,A12,42.4,4.2
+MC04,F2,"Newhall, Entrada",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,F09,,Spineflower 3,B12,37.5,3.7
+MC05,F2,"Newhall, Entrada",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,G09,,Spineflower 3,C12,28.1,2.8
+MC06,F2,"Newhall, Entrada",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,H09,,Spineflower 3,D12,22.8,2.3
+MC07,F2,"Newhall, Entrada",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,A10,,Spineflower 3,E12,17.6,1.8
+MC08,F2,"Newhall, Entrada",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,B10,,Spineflower 3,F12,30.8,3.1
+MC09,F2,"Newhall, Entrada",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,C10,,Spineflower 3,G12,26.9,2.7
+MC10,F11,"Newhall, Lion Canyon",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,D10,,Spineflower 3,H12,23.1,2.3
+MC11,F11,"Newhall, Lion Canyon",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,E10,,Spineflower 4,A01,21.1,2.1
+MC12,F11,"Newhall, Lion Canyon",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,F10,,Spineflower 4,B01,17.0,1.7
+MC13,F11,"Newhall, Lion Canyon",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,G10,,Spineflower 4,C01,23.4,2.3
+MC14,F11,"Newhall, Lion Canyon",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,H10,,Spineflower 4,D01,31.8,3.2
+MC15,F11,"Newhall, Lion Canyon",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,A11,,Spineflower 4,E01,55.7,5.6
+MC16,F11,"Newhall, Lion Canyon",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,B11,,Spineflower 4,F01,34.7,3.5
+MC17,F11,"Newhall, Lion Canyon",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,C11,,Spineflower 4,G01,49.8,5.0
+MC18,F11,"Newhall, Lion Canyon",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,D11,,Spineflower 4,H01,44.9,4.5
+MC19,F11,"Newhall, Lion Canyon",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,E11,,Spineflower 4,A02,51.9,5.2
+MC20,F11,"Newhall, Lion Canyon",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,F11,,Spineflower 4,B02,20.2,2.0
+MC21,F11,"Newhall, Lion Canyon",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,G11,,Spineflower 4,C02,17.8,1.8
+MC22,F11,"Newhall, Lion Canyon",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,H11,,Spineflower 4,D02,25.5,2.5
+MC23,F11,"Newhall, Lion Canyon",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,A12,,Spineflower 4,E02,8.4,0.8
+MC24,F11,"Newhall, Lion Canyon",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,B12,,Spineflower 4,F02,22.5,2.2
+MC25,F11,"Newhall, Lion Canyon",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,C12,,Spineflower 4,G02,15.3,1.5
+MC26,F11,"Newhall, Lion Canyon",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,D12,,Spineflower 4,H02,16.4,1.6
+MC27,F11,"Newhall, Lion Canyon",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,E12,,Spineflower 4,A03,22.0,2.2
+MC28,F11,"Newhall, Lion Canyon",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,F12,,Spineflower 4,B03,34.8,3.5
+MC29,F11,"Newhall, Lion Canyon",1-2 April 2015,3-Apr-15,,,leaves,,,,yes,608,G12,,Spineflower 4,C03,35.5,3.5
