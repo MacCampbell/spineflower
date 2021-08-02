@@ -13,14 +13,15 @@
 
 #Job specs
 
-#SBATCH --partition=high
+#SBATCH --partition=bigmemm
+#SBATCH --mem-per-cpu=10G
 
 #SBATCH --nodes=2
 #SBATCH --ntasks-per-node=8
 #SBATCH --time=2-12:00:00
 
 ##Setting up test dataset
-## head -n 40 1005_paralogs/spineflower_80.bamlist > 0008/40.bamlist
+## head -n 20 1005_paralogs/spineflower_80.bamlist > 0008/40.bamlist
 
 #SBATCH -o /home/maccamp/spineflower/0008/test.stdout
 

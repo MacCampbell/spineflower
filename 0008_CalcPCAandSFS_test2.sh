@@ -13,7 +13,8 @@
 
 #Job specs
 
-#SBATCH --partition=high
+#SBATCH --partition=bigmemm
+#SBATCH --mem-per-cpu=10G
 
 #SBATCH --nodes=2
 #SBATCH --ntasks-per-node=8
@@ -22,7 +23,7 @@
 ##Setting up test dataset
 ## head -n 40 1005_paralogs/spineflower_80.bamlist > 0008/40.bamlist
 
-#SBATCH -o /home/maccamp/spineflower/0008/test.stdout
+#SBATCH -o /home/maccamp/spineflower/0008/test2.stdout
 
 
 ##Using 0007/nonparalogous-contigs.tsv as a region file let's generate a PCA and a SFS for sanity with and without the flagged regions
