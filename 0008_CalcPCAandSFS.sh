@@ -18,6 +18,7 @@
 #SBATCH --nodes=2
 #SBATCH --ntasks-per-node=8
 #SBATCH --time=2-12:00:00
+#SBATCH --mem=32G
 
 
 #SBATCH -o /home/maccamp/spineflower/0008/0008.stdout
