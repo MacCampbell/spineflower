@@ -1,0 +1,137 @@
+---
+title: "0008.1-plot-sfs-and-pca"
+author: "Mac Campbell"
+date: "8/2/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
+```
+
+```{r}
+library(tidyverse)
+library(gdata)
+```
+
+## Plot SFS 
+```{r}
+sfs<-(as.numeric(read.table("0008/with-out-paralogs.sfs")[1,])) 
+barplot(sfs[-c(1,length(sfs))]) #plot variable sites 
+```
+```{r}
+sfs2<-(as.numeric(read.table("0008/with-paralogs.sfs")[1,])) 
+barplot(sfs2[-c(1,length(sfs2))]) #plot variable sites 
+```
+
+Plotting with ggplot
+```{r}
+tidy<-sfs %>% as_tibble() %>% mutate(Entry=1:n()) %>% mutate(Proportion=value/sum(value)) %>% mutate(Paralogs="Without")
+
+ggplot(tidy) +
+  geom_bar(aes(x=Entry, y=Proportion), stat='identity') +
+  theme_bw() +
+  xlim(0,0)
+```
+
+## PCA
+
+Organizing meta.
+
+```{r}
+meta<-read_csv("meta/sample-meta.csv")
+
+bams<-read_tsv("bamlists/spineflower.bamlist", col_names=c("Path"))
+bams$`NFGEL#`<-gsub("/home/djprince/active_projects/spineflower/1004_alignments/","",bams$Path)
+bams$`NFGEL#`<-gsub("_sorted_proper_rmdup.bam","",bams$`NFGEL#`)
+meta<-left_join(bams, meta) %>% rename(Label=`NFGEL#`)
+
+counts<-read_csv("meta/spineflower.counts", col_names=c("Counts","SubCounts"))
+stats<-read_csv("meta/spineflower.stats", col_names=c("Stat1","Stat2","Mapped"))
+
+meta<-bind_cols(meta,counts,stats)
+
+write_csv(meta, "meta/samples-187.csv")
+```
+
+```{r}
+ggplot(meta) +
+  geom_histogram(aes(x=Counts))
+
+```
+
+```{r}
+covk<-read_delim("0008/with-out-paralogs-pca.cov", col_names=FALSE, delim=" ") %>% as.matrix()
+```
+
+```{r}
+#' @param samples character vector with the individuals IDs in the order in which
+#' they were passed in the bamlist to angsd.
+#' @param cov covariance matrix
+covar2pcs <- function(samples, cov) {
+  
+  
+  eig <- eigen(cov, symm = TRUE)
+  PC <- as.data.frame(eig$vectors) %>%
+    as_tibble() %>%
+    setNames(sprintf("PC-%02d", 1:ncol(.)))
+  
+  samtib <- tibble(sample = samples)
+  
+  list(
+    PCs = bind_cols(samtib, PC),
+    eigevalues = eig$values
+  )
+}
+```
+
+```{r}
+pcak <- covar2pcs(meta$Label, covk)
+
+pca_longk <- pcak$PCs %>%
+  tidyr::gather(., key = "PC", "val", -sample)
+
+# then expand a grid of the possible comparisons (ordered)
+expgk <- expand.grid(sample = pcak$PCs$sample,
+                    PCx = sprintf("PC-%02d", 1:6),
+                    PCy = sprintf("PC-%02d", 1:6),
+                    stringsAsFactors = FALSE) %>%
+  tibble::as_tibble()
+
+# then left join the pca results onto that
+pca_pairsk <- dplyr::left_join(expgk, pca_longk, by = c("sample", "PCx" = "PC")) %>%
+  dplyr::rename(val_x = val) %>%
+  dplyr::left_join(pca_longk, by = c("sample", "PCy" = "PC")) %>%
+  dplyr::rename(val_y = val)
+
+npc <- 3
+pck <- pca_pairsk %>%
+  filter( (PCx %in% sprintf("PC-%02d", 1:npc)) & 
+            (PCy %in% sprintf("PC-%02d", 1:npc)) ) %>%
+  left_join(., meta, by = c("sample" = "Label")) %>%
+  mutate(group = Location) 
+
+eigk <- eigen(covk, symm = TRUE)
+vark <-eigk$values/sum(eigk$values)
+cumvark <-cumsum(eigk$values)/sum(eigk$values)
+
+head(vark)
+head(cumvark)
+```
+
+```{r}
+ggplot(pck) +
+  geom_point(aes(x=val_x, y=val_y, color=Location), alpha=0.75) +
+  facet_grid(PCx ~ PCy)
+```
+Newhall Ranch is a different species.
+
+```{r}
+sub<-pck[!startsWith(pck$Location,"Newhall Ranch"),]
+```
+
+```{r}
+ggplot(sub) +
+  geom_point(aes(x=val_x, y=val_y, color=Location), alpha=0.75) +
+  facet_grid(PCx ~ PCy)
+```

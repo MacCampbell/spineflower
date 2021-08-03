@@ -36,10 +36,10 @@ srun $HOME/angsd/angsd -P 16 -bam 0008/40.bamlist -doSaf 1 -out 0008/test-with-p
 #srun $HOME/angsd/angsd -P 16 -bam 0008/40.bamlist -doSaf 1 -out 0008/test-with-out-paralogs -anc 1003_stacks/catalog.fa -GL 2 -minMapQ 10 -minQ 20 \
 #-rf 0007/nonparalogous-contigs.tsv
 
-srun $HOME/angsd/misc/realSFS 0008/test-with-paralogs.saf.idx -maxIter 100 -P 16 >  0008/test-with-paralogs.sfs
+srun $HOME/angsd/misc/realSFS 0008/test-with-paralogs.saf.idx -maxIter 100 -P 16 -fold 1 >  0008/test-with-paralogs.sfs
 #srun $HOME/angsd/misc/realSFS 0008/test-with-out-paralogs.saf.idx -maxIter 100 -P 16 >  0008/test-with-out-paralogs.sfs
 
-## Beagle file generation 187 samples
+## Beagle file generation 187 samples (for test file, need to change)
 srun $HOME/angsd/angsd -P 16 -bam 0008/40.bamlist -out 0008/test-with-paralogs-pca -minInd 168 -GL 1 -doGlf 2  -doMajorMinor 1 -doMaf 2 \
 -SNP_pval 1e-6 -minMapQ 10 -minQ 20 
 
