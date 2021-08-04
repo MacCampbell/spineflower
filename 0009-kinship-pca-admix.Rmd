@@ -1,0 +1,33 @@
+---
+title: "0009-kinship-pca-admix"
+author: "Mac Campbell"
+date: "8/4/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
+```
+
+```{r}
+library(tidyverse)
+library(RcppCNPy)
+library(viridis)
+library(ggrepel)
+```
+
+## We need to drop out the non-target species
+
+```{r}
+meta<-read_csv("meta/samples-187.csv")
+meta2<-meta[!startsWith(meta$Location,"Newhall Ranch"),]
+
+bams2<-meta2 %>% select(Path)
+write_tsv(bams2, "bamlists/182.bamlist", col_names = FALSE)
+write_csv(meta2, "meta/182.csv")
+```
+
+Create a beagle file 
+```{sh, eval=FALSE}
+srun  -p bigmemh --mem-per-cpu=10G --mem=32G -t 12:00:00 $HOME/angsd/angsd -P 4 -bam bamlists/182.bamlist -out 0009/pca -minInd 164 -GL 1 -doGlf 2  -doMajorMinor 1 -doMaf 2 -SNP_pval 1e-6 -minMapQ 10 -minQ 20 -rf 0007/nonparalogous-contigs.tsv > 0009/pca.stdout 2> 0009/pca.stderr &
+```

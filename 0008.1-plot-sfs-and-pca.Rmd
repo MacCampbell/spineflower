@@ -12,27 +12,21 @@ knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
 ```{r}
 library(tidyverse)
 library(gdata)
+library(RcppCNPy)
+library(viridis)
+library(ggrepel)
 ```
 
 ## Plot SFS 
 ```{r}
-sfs<-(as.numeric(read.table("0008/with-out-paralogs.sfs")[1,])) 
+sfs<-(as.numeric(read.table("0008/with-out-paralogs.sfs"))) 
 barplot(sfs[-c(1,length(sfs))]) #plot variable sites 
 ```
 ```{r}
-sfs2<-(as.numeric(read.table("0008/with-paralogs.sfs")[1,])) 
+sfs2<-(as.numeric(read.table("0008/with-paralogs.sfs"))) 
 barplot(sfs2[-c(1,length(sfs2))]) #plot variable sites 
 ```
 
-Plotting with ggplot
-```{r}
-tidy<-sfs %>% as_tibble() %>% mutate(Entry=1:n()) %>% mutate(Proportion=value/sum(value)) %>% mutate(Paralogs="Without")
-
-ggplot(tidy) +
-  geom_bar(aes(x=Entry, y=Proportion), stat='identity') +
-  theme_bw() +
-  xlim(0,0)
-```
 
 ## PCA
 
@@ -49,7 +43,7 @@ meta<-left_join(bams, meta) %>% rename(Label=`NFGEL#`)
 counts<-read_csv("meta/spineflower.counts", col_names=c("Counts","SubCounts"))
 stats<-read_csv("meta/spineflower.stats", col_names=c("Stat1","Stat2","Mapped"))
 
-meta<-bind_cols(meta,counts,stats)
+meta<-bind_cols(meta,counts,stats)  %>% mutate(Index=1:n())
 
 write_csv(meta, "meta/samples-187.csv")
 ```
@@ -60,9 +54,26 @@ ggplot(meta) +
 
 ```
 
+Read 187 samples and 29514 sites       
+Number of sites after MAF filtering (0.05): 13117        
+Estimating admixture with K=11, alpha=0, batch=10, seed=0
+
 ```{r}
-covk<-read_delim("0008/with-out-paralogs-pca.cov", col_names=FALSE, delim=" ") %>% as.matrix()
+cov<-read_delim("0008/with-out-paralogs-pca.cov", col_names=FALSE, delim=" ") %>% as.matrix()
 ```
+
+Masking related individuals with pair-wise kinship estimates >= 0.0625       
+Keeping 180 individuals after filtering (removing 7)        
+Boolean vector of unrelated individuals saved as 0008/with-out-paralogs-pca-relate.unrelated.npy (Binary)       
+Parsing Beagle file       
+Read 180 samples and 29514 sites       
+Number of sites after MAF filtering (0.05): 13096
+Estimating admixture with K=10, alpha=0, batch=10, seed=0
+
+```{r}
+covk<-read_delim("0008/with-out-paralogs-pca-relate.cov", col_names=FALSE, delim=" ") %>% as.matrix()
+```
+
 
 ```{r}
 #' @param samples character vector with the individuals IDs in the order in which
@@ -85,8 +96,113 @@ covar2pcs <- function(samples, cov) {
 }
 ```
 
+### Without excluding related inds
+
 ```{r}
-pcak <- covar2pcs(meta$Label, covk)
+pca <- covar2pcs(meta$Label, cov)
+
+pca_long <- pca$PCs %>%
+  tidyr::gather(., key = "PC", "val", -sample)
+
+# then expand a grid of the possible comparisons (ordered)
+expg <- expand.grid(sample = pca$PCs$sample,
+                    PCx = sprintf("PC-%02d", 1:6),
+                    PCy = sprintf("PC-%02d", 1:6),
+                    stringsAsFactors = FALSE) %>%
+  tibble::as_tibble()
+
+# then left join the pca results onto that
+pca_pairs <- dplyr::left_join(expg, pca_long, by = c("sample", "PCx" = "PC")) %>%
+  dplyr::rename(val_x = val) %>%
+  dplyr::left_join(pca_long, by = c("sample", "PCy" = "PC")) %>%
+  dplyr::rename(val_y = val)
+
+npc <- 3
+pc <- pca_pairs %>%
+  filter( (PCx %in% sprintf("PC-%02d", 1:npc)) & 
+            (PCy %in% sprintf("PC-%02d", 1:npc)) ) %>%
+  left_join(., meta, by = c("sample" = "Label")) %>%
+  mutate(group = Location) 
+
+eig <- eigen(cov, symm = TRUE)
+var <-eig$values/sum(eig$values)
+cumvar <-cumsum(eig$values)/sum(eig$values)
+
+head(var)
+head(cumvar)
+```
+
+```{r}
+ggplot(pc) +
+  geom_point(aes(x=val_x, y=val_y, color=Location), alpha=0.75) +
+  facet_grid(PCx ~ PCy)
+```
+
+Examining relatedness.
+
+```{r}
+kin<-npyLoad("0008/with-out-paralogs-pca.kinship.npy")
+
+#Convert upper half of matrix to data frame compatible 
+kinrind<-which(upper.tri(kin, diag = TRUE), arr.ind = TRUE)
+kin<-cbind(kinrind, kin[kinrind])
+
+kindf<-as_tibble(kin) %>%
+  rename(Ind1=row, Ind2=col, Kinship=V3) %>%
+  filter(Ind1 != Ind2) %>%
+  mutate(Mean=mean(Kinship))
+
+#Can I replace Ind1 and Ind2 with individual labels???
+df<-kindf %>% left_join(meta, by=c("Ind1"="Index")) %>%
+  left_join(meta, by=c("Ind2"="Index")) 
+
+#Ahh, and what are our "related" individuals
+df %>% filter(Kinship>0.0625) %>% group_by(Location.x, Location.y) %>% summarize(Count=n())
+```
+
+```{r}
+popdf<-df %>% filter(Location.x==Location.y) %>% mutate(Site=Location.x)
+
+cols<-viridis(6)
+
+ggplot(popdf)+geom_histogram(aes(x=Kinship), bins=50, fill="grey", color="grey") +
+  geom_vline(xintercept =.25, col=cols[1]) + #Parent offspring/full sibs
+  geom_vline(xintercept =.125, col=cols[2]) + #2nd degree
+  geom_vline(xintercept =.0625, col=cols[3]) + # 3rd
+  geom_vline(xintercept = .0313, col=cols[4]) +
+  geom_vline(xintercept = .0156, col=cols[5]) +
+  geom_vline(xintercept = 0.0, col=cols[6]) +
+  scale_x_continuous(breaks=c(0,0.0156, 0.0313, 0.0625, 0.125, 0.25),
+                     labels=c("0 / Unrelated","5th Deg.","4th Deg.","3rd Deg.", "2nd Deg.", "1st Deg.")) +
+  theme_bw() +
+  theme(axis.text.x = element_text(hjust=1, angle=45)) +
+  theme(panel.grid=element_blank()) +
+  ylab("Count") +
+  xlab("Kinship Coefficient")+
+  facet_wrap(Site ~ ., ncol=4, scales="free_y")
+```
+
+Popmeans
+```{r}
+popmeans<- df %>% filter(Location.x==Location.y)  %>% group_by(Location.x, Location.y) %>%
+  summarize(Mean=mean(Kinship)) %>%
+  arrange(-Mean) %>% ungroup() %>% mutate(Position=1:n())
+
+ggplot(popmeans) +
+  geom_point(aes(x=Position, y=Mean)) +
+  #geom_label_repel(aes(x=Position, y=Mean, label=Location.x)) +
+  scale_x_continuous(breaks=popmeans$Position, labels = popmeans$Location.x) +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle=45)) 
+```
+
+### Excluding related inds
+
+```{r}
+vec <- npyLoad("0008/with-out-paralogs-pca-relate.unrelated.npy") %>% as_tibble() %>%
+  rename(Kept=value)
+metak <- bind_cols(meta, vec) %>% filter(Kept !=0)
+pcak <- covar2pcs(metak$Label, covk)
 
 pca_longk <- pcak$PCs %>%
   tidyr::gather(., key = "PC", "val", -sample)
@@ -108,7 +224,7 @@ npc <- 3
 pck <- pca_pairsk %>%
   filter( (PCx %in% sprintf("PC-%02d", 1:npc)) & 
             (PCy %in% sprintf("PC-%02d", 1:npc)) ) %>%
-  left_join(., meta, by = c("sample" = "Label")) %>%
+  left_join(., metak, by = c("sample" = "Label")) %>%
   mutate(group = Location) 
 
 eigk <- eigen(covk, symm = TRUE)
@@ -124,6 +240,7 @@ ggplot(pck) +
   geom_point(aes(x=val_x, y=val_y, color=Location), alpha=0.75) +
   facet_grid(PCx ~ PCy)
 ```
+
 Newhall Ranch is a different species.
 
 ```{r}
