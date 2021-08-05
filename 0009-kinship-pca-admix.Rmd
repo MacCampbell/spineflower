@@ -14,6 +14,8 @@ library(tidyverse)
 library(RcppCNPy)
 library(viridis)
 library(ggrepel)
+library(RColorBrewer)
+library(ggpubr)
 ```
 
 ## We need to drop out the non-target species
@@ -25,9 +27,345 @@ meta2<-meta[!startsWith(meta$Location,"Newhall Ranch"),]
 bams2<-meta2 %>% select(Path)
 write_tsv(bams2, "bamlists/182.bamlist", col_names = FALSE)
 write_csv(meta2, "meta/182.csv")
+
+meta<-meta2 %>% select(-Index) %>% mutate(Index=1:n())
+```
+
+Further splitting up Location      
+
+```{r}
+meta<-meta %>% separate(Location, into=c("Area","Site"), sep=",", remove=FALSE)
+meta$Site<-trimws(meta$Site)
 ```
 
 Create a beagle file 
 ```{sh, eval=FALSE}
 srun  -p bigmemh --mem-per-cpu=10G --mem=32G -t 12:00:00 $HOME/angsd/angsd -P 4 -bam bamlists/182.bamlist -out 0009/pca -minInd 164 -GL 1 -doGlf 2  -doMajorMinor 1 -doMaf 2 -SNP_pval 1e-6 -minMapQ 10 -minQ 20 -rf 0007/nonparalogous-contigs.tsv > 0009/pca.stdout 2> 0009/pca.stderr &
+
+srun -p high -t 01:00:00 python $HOME/pcangsd/pcangsd.py -beagle 0009/pca.beagle.gz -kinship -admix -o 0009/pca-kin -threads 10
+
+srun -p high -t 01:00:00 python $HOME/pcangsd/pcangsd.py -beagle 0009/pca.beagle.gz -relate 0009/pca-kin.kinship.npy -admix -o 0009/pca-relate -threads 10
+
 ```
+
+Read 182 samples and 22314 sites      
+Number of sites after MAF filtering (0.05): 14196      
+Estimating admixture with K=10, alpha=0, batch=10, seed=0       
+
+Masking related individuals with pair-wise kinship estimates >= 0.0625       
+Keeping 174 individuals after filtering (removing 8)      
+Read 174 samples and 22314 sites     
+Number of sites after MAF filtering (0.05): 14181     
+Estimating admixture with K=9, alpha=0, batch=10, seed=0     
+
+## PCA
+
+```{r}
+cov<-read_delim("0009/pca-kin.cov", col_names=FALSE, delim=" ") %>% as.matrix()
+covk<-read_delim("0009/pca-relate.cov", col_names=FALSE, delim=" ") %>% as.matrix()
+```
+
+
+```{r}
+#' @param samples character vector with the individuals IDs in the order in which
+#' they were passed in the bamlist to angsd.
+#' @param cov covariance matrix
+covar2pcs <- function(samples, cov) {
+  
+  
+  eig <- eigen(cov, symm = TRUE)
+  PC <- as.data.frame(eig$vectors) %>%
+    as_tibble() %>%
+    setNames(sprintf("PC-%02d", 1:ncol(.)))
+  
+  samtib <- tibble(sample = samples)
+  
+  list(
+    PCs = bind_cols(samtib, PC),
+    eigevalues = eig$values
+  )
+}
+```
+
+### Without excluding related inds
+
+```{r}
+pca <- covar2pcs(meta$Label, cov)
+
+pca_long <- pca$PCs %>%
+  tidyr::gather(., key = "PC", "val", -sample)
+
+# then expand a grid of the possible comparisons (ordered)
+expg <- expand.grid(sample = pca$PCs$sample,
+                    PCx = sprintf("PC-%02d", 1:6),
+                    PCy = sprintf("PC-%02d", 1:6),
+                    stringsAsFactors = FALSE) %>%
+  tibble::as_tibble()
+
+# then left join the pca results onto that
+pca_pairs <- dplyr::left_join(expg, pca_long, by = c("sample", "PCx" = "PC")) %>%
+  dplyr::rename(val_x = val) %>%
+  dplyr::left_join(pca_long, by = c("sample", "PCy" = "PC")) %>%
+  dplyr::rename(val_y = val)
+
+npc <- 3
+pc <- pca_pairs %>%
+  filter( (PCx %in% sprintf("PC-%02d", 1:npc)) & 
+            (PCy %in% sprintf("PC-%02d", 1:npc)) ) %>%
+  left_join(., meta, by = c("sample" = "Label")) %>%
+  mutate(group = Location) 
+
+eig <- eigen(cov, symm = TRUE)
+var <-eig$values/sum(eig$values)
+cumvar <-cumsum(eig$values)/sum(eig$values)
+
+head(var)
+head(cumvar)
+```
+
+```{r}
+ggplot(pc) +
+  geom_point(aes(x=val_x, y=val_y, fill=Site, shape=Area), alpha=0.75) +
+  theme_bw() +
+  scale_shape_manual(values = c(21,24)) +
+  facet_grid(PCx ~ PCy) +
+  guides(fill = guide_legend(override.aes=list(shape=22))) 
+```
+
+Examining relatedness.
+
+```{r}
+kin<-npyLoad("0009/pca-kin.kinship.npy")
+
+#Convert upper half of matrix to data frame compatible 
+kinrind<-which(upper.tri(kin, diag = TRUE), arr.ind = TRUE)
+kin<-cbind(kinrind, kin[kinrind])
+
+kindf<-as_tibble(kin) %>%
+  rename(Ind1=row, Ind2=col, Kinship=V3) %>%
+  filter(Ind1 != Ind2) %>%
+  mutate(Mean=mean(Kinship))
+
+#Can I replace Ind1 and Ind2 with individual labels???
+df<-kindf %>% left_join(meta, by=c("Ind1"="Index")) %>%
+  left_join(meta, by=c("Ind2"="Index")) 
+
+#Ahh, and what are our "related" individuals
+df %>% filter(Kinship>0.0625) %>% group_by(Location.x, Location.y) %>% summarize(Count=n())
+```
+Uhhmmm, so not from the same sampling location??    
+
+```{r}
+df %>% filter(Kinship>0.125) %>% group_by(Location.x, Location.y) %>% summarize(Count=n())
+```
+Well that makes sense at least!!!
+
+
+```{r}
+popdf<-df %>% filter(Location.x==Location.y) %>% mutate(Site=Site.x)
+
+cols<-viridis(6)
+
+ggplot(popdf)+geom_histogram(aes(x=Kinship), bins=50, fill="grey", color="grey") +
+  geom_vline(xintercept =.25, col=cols[1]) + #Parent offspring/full sibs
+  geom_vline(xintercept =.125, col=cols[2]) + #2nd degree
+  geom_vline(xintercept =.0625, col=cols[3]) + # 3rd
+  geom_vline(xintercept = .0313, col=cols[4]) +
+  geom_vline(xintercept = .0156, col=cols[5]) +
+  geom_vline(xintercept = 0.0, col=cols[6]) +
+  scale_x_continuous(breaks=c(0,0.0156, 0.0313, 0.0625, 0.125, 0.25),
+                     labels=c("0 / Unrelated","5th Deg.","4th Deg.","3rd Deg.", "2nd Deg.", "1st Deg.")) +
+  theme_bw() +
+  theme(axis.text.x = element_text(hjust=1, angle=45)) +
+  theme(panel.grid=element_blank()) +
+  ylab("Count") +
+  xlab("Kinship Coefficient")+
+  facet_wrap(Site ~ ., ncol=4, scales="free_y")
+```
+
+Popmeans     
+
+```{r}
+popmeans<- df %>% filter(Location.x==Location.y)  %>% group_by(Location.x, Location.y) %>%
+  summarize(Mean=mean(Kinship)) %>%
+  arrange(-Mean) %>% ungroup() %>% mutate(Position=1:n())
+
+ggplot(popmeans) +
+  geom_point(aes(x=Position, y=Mean)) +
+  #geom_label_repel(aes(x=Position, y=Mean, label=Location.x)) +
+  scale_x_continuous(breaks=popmeans$Position, labels = popmeans$Location.x) +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle=45)) 
+```
+
+### Excluding related inds
+
+```{r}
+vec <- npyLoad("0009/pca-relate.unrelated.npy") %>% as_tibble() %>%
+  rename(Kept=value)
+metak <- bind_cols(meta, vec) %>% filter(Kept !=0)
+pcak <- covar2pcs(metak$Label, covk)
+
+pca_longk <- pcak$PCs %>%
+  tidyr::gather(., key = "PC", "val", -sample)
+
+# then expand a grid of the possible comparisons (ordered)
+expgk <- expand.grid(sample = pcak$PCs$sample,
+                    PCx = sprintf("PC-%02d", 1:6),
+                    PCy = sprintf("PC-%02d", 1:6),
+                    stringsAsFactors = FALSE) %>%
+  tibble::as_tibble()
+
+# then left join the pca results onto that
+pca_pairsk <- dplyr::left_join(expgk, pca_longk, by = c("sample", "PCx" = "PC")) %>%
+  dplyr::rename(val_x = val) %>%
+  dplyr::left_join(pca_longk, by = c("sample", "PCy" = "PC")) %>%
+  dplyr::rename(val_y = val)
+
+npc <- 3
+pck <- pca_pairsk %>%
+  filter( (PCx %in% sprintf("PC-%02d", 1:npc)) & 
+            (PCy %in% sprintf("PC-%02d", 1:npc)) ) %>%
+  left_join(., metak, by = c("sample" = "Label")) %>%
+  mutate(group = Location) 
+
+eigk <- eigen(covk, symm = TRUE)
+vark <-eigk$values/sum(eigk$values)
+cumvark <-cumsum(eigk$values)/sum(eigk$values)
+
+head(vark)
+head(cumvark)
+```
+
+```{r}
+ggplot(pck) +
+  geom_point(aes(x=val_x, y=val_y, fill=Site, shape=Area), alpha=0.75) +
+  theme_bw() +
+  scale_shape_manual(values = c(21,24)) +
+  facet_grid(PCx ~ PCy) +
+  guides(fill = guide_legend(override.aes=list(shape=22))) 
+```
+
+Plotting bigger
+
+```{r}
+sub12<-pck %>% filter( (PCx =="PC-01") & (PCy =="PC-02") )
+
+centers12<-sub12 %>% group_by(Site) %>% mutate(MeanX=mean(val_x), MeanY=mean(val_y)) %>% 
+  select(Site, MeanX, MeanY) %>% unique()
+
+
+pc12<-ggplot(sub12, aes(x = val_x, y = val_y)) +
+  geom_point(aes( fill=Site, shape=Area), size = 2, alpha=0.75) +
+  geom_text_repel(data=centers12, aes(x=MeanX, y=MeanY, label=Site), color="black", fontface='bold', size=3)+
+  scale_fill_discrete(na.value = "white") + 
+  scale_shape_manual(values = c(21,24)) +
+  theme_bw()+
+  theme(panel.grid=element_blank())+
+  xlab(paste("PC1", " ", round((100*vark[1]),2), "%", sep = ""))+
+  ylab(paste("PC2", " ", round((100*vark[2]),2), "%", sep = ""))+
+  theme(legend.position = "")+
+  ggtitle("Related Individuals Excluded PCs 1 & 2")+
+  theme(plot.title = element_text(hjust = 0.5))
+
+
+
+sub13<-pck %>% filter( (PCx =="PC-01") & (PCy =="PC-03") )
+centers13<-sub13 %>% group_by(Site) %>% mutate(MeanX=mean(val_x), MeanY=mean(val_y)) %>% select(Site, MeanX, MeanY) %>% unique()
+
+pc13<-ggplot(sub13, aes(x = val_x, y = val_y, fill=Site)) +
+  geom_point(aes( fill=Site, shape=Area), size = 2, alpha=0.75) +
+  geom_text_repel(data=centers13, aes(x=MeanX, y=MeanY, label=Site), color="black", fontface='bold', size=3)+
+  scale_fill_discrete(na.value = "white") + 
+  scale_shape_manual(values = c(21,24)) +
+  theme_bw()+
+  theme(panel.grid=element_blank())+
+  xlab(paste("PC1", " ", round((100*vark[1]),2), "%", sep = ""))+
+  ylab(paste("PC3", " ", round((100*vark[3]),2), "%", sep = ""))+
+  theme(legend.position = "")+
+  ggtitle("Related Individuals Excluded PCs 1 & 3")+
+  theme(plot.title = element_text(hjust = 0.5))
+
+
+
+ggarrange(pc12, pc13, ncol = 2)
+```
+
+     
+## Admix
+The K drops from 10 to 9 when omitting related individuals.
+
+```{r}
+k16<-npyLoad("0009/pca-relate.admix.Q.npy") %>% as_tibble() 
+#Need to rename all colnames smartly!
+colnames(k16)<-gsub("V","Q",colnames(k16))
+k16$Individual<-metak$Label
+k16$Site<-metak$Site
+k16$Area<-metak$Area
+k16 <- k16 %>% arrange(Site)
+k16<-mutate(k16, Index=1:n())
+q16<-k16 %>% dplyr::select(Index, Site, Area, Individual, Q1, Q2, Q3, Q4, Q5, Q6, Q7, Q8, Q9) %>% 
+  gather(key=Ancestry, value=Q, 5:13)
+
+pops2<-q16  %>% group_by(Site) %>% mutate(Start=min(Index), Stop=max(Index)) %>% 
+  select(Site,Start,Stop) %>% unique() %>% 
+  mutate(Position=round((Start+Stop)/2))
+  kplot<-ggplot(q16) +
+  geom_col(aes(x=Index, y=Q, fill=Ancestry), color="NA", size = 0, width = 1)+
+  geom_segment(data=pops2, x = pops2$Start - 0.5, y=0, xend = pops2$Start-0.5, yend=1, alpha=0.9, size=0.25) +
+  geom_segment(data=pops2, x = pops2$Stop[length(pops2$Stop)]  + 0.5, y=0, xend= pops2$Stop[length(pops2$Stop)] + 0.5, yend=1,  alpha=0.9,
+               size=0.25) +
+  geom_segment(x=0, xend= pops2$Stop[length(pops2$Stop)], y=1, yend=1, alpha=0.9, size=0.25) +
+  theme(axis.text.x = element_text(angle=45, hjust=1)) +
+  ylim(0,1.01) +
+  xlim(-0.1, pops2$Stop[length(pops2$Stop)]+1) +
+  theme(panel.background = element_blank())+
+  scale_x_continuous(breaks=pops2$Position, labels=pops2$Site) +
+  xlab("") +
+    scale_fill_viridis_d(option="turbo")
+ # theme(axis.text.x = element_blank(), axis.ticks.x=element_blank()) +
+#  theme(legend.position = "NA") +
+
+kplot
+```
+
+Interesting...
+
+Probably should split the samples into Newhall and Upper Las Virgenes and then redo PCA/Admix
+
+Going back to the non-filtered data set for relatives    
+```{r}
+kk<-npyLoad("0009/pca-kin.admix.Q.npy") %>% as_tibble() 
+#Need to rename all colnames smartly!
+colnames(kk)<-gsub("V","Q",colnames(kk))
+kk$Individual<-meta$Label
+kk$Site<-meta$Site
+kk$Area<-meta$Area
+kk <- kk %>% arrange(Site)
+kk<-mutate(kk, Index=1:n())
+qk<-kk %>% dplyr::select(Index, Site, Area, Individual, Q1, Q2, Q3, Q4, Q5, Q6, Q7, Q8, Q9, Q10) %>% 
+  gather(key=Ancestry, value=Q, 5:14)
+
+popsk2<-kk  %>% group_by(Site) %>% mutate(Start=min(Index), Stop=max(Index)) %>% 
+  select(Site,Start,Stop) %>% unique() %>% 
+  mutate(Position=round((Start+Stop)/2))
+
+  kkplot<-ggplot(qk) +
+  geom_col(aes(x=Index, y=Q, fill=Ancestry), color="NA", size = 0, width = 1)+
+  geom_segment(data=popsk2, x = popsk2$Start - 0.5, y=0, xend = popsk2$Start-0.5, yend=1, alpha=0.9, size=0.25) +
+  geom_segment(data=popsk2, x = popsk2$Stop[length(popsk2$Stop)]  + 0.5, y=0, xend= popsk2$Stop[length(popsk2$Stop)] + 0.5, yend=1,  alpha=0.9,
+               size=0.25) +
+  geom_segment(x=0, xend= popsk2$Stop[length(popsk2$Stop)], y=1, yend=1, alpha=0.9, size=0.25) +
+  theme(axis.text.x = element_text(angle=45, hjust=1)) +
+  ylim(0,1.01) +
+  xlim(-0.1, popsk2$Stop[length(popsk2$Stop)]+1) +
+  theme(panel.background = element_blank())+
+  scale_x_continuous(breaks=popsk2$Position, labels=popsk2$Site) +
+  xlab("") +
+    scale_fill_viridis_d(option="turbo")
+ # theme(axis.text.x = element_blank(), axis.ticks.x=element_blank()) +
+#  theme(legend.position = "NA") +
+
+kkplot
+```
+

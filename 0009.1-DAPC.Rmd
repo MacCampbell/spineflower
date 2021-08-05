@@ -1,0 +1,152 @@
+---
+title: "0009.1-DAPC"
+author: "Mac Campbell"
+date: "8/4/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+```{r}
+library(tidyverse)
+library(vcfR)
+library(adegenet)
+library(reshape2)
+```
+
+## DAPC
+The use of DAPC should help us with the varying selfing rates.       
+
+```{sh, eval=FALSE}
+srun  -p bigmemh --mem-per-cpu=10G --mem=32G -t 12:00:00 $HOME/angsd/angsd -P 4 -bam bamlists/182.bamlist \
+-minInd 164 -GL 1 -out 0009/plink -doPlink 2 -doMajorMinor 1 -doMaf 1 \
+-SNP_pval 1e-6  -minMapQ 10 -minQ 20  -minMaf 0.05 -rf 0007/nonparalogous-contigs.tsv \
+-doGeno 4 -doPost 1 -postCutoff 0.9 > 0009/plink.stdout 2> 0009/plink.stderr &
+```
+
+Locally:    
+Problem with chrom names
+```{sh, eval=FALSE}
+cut -f 1,2 -d ' ' plink.tped | awk '{print "seq"$1 " seq"$2}' > newStart
+awk '{$1=$2=""; print $0}' plink.tped > newEnd
+cp plink.tped plink.bak
+paste newStart newEnd > plink.tped
+plink --tped plink.tped --tfam plink.tfam --out binary --recode --allow-extra-chr --noweb
+plink --ped binary.ped --map binary.map --recode vcf --allow-extra-chr -out recode
+cut -f 2 -d ',' ../meta/182.csv | perl -pe 's/Label\n//g' > samples.txt 
+bcftools reheader --samples samples.txt -o recode.reheadered.vcf recode.vcf
+```
+
+```{r}
+meta182<-read_csv("meta/182.csv")
+```
+
+```{r, eval=FALSE}
+vcf<-read.vcfR(file="0009/recode.vcf")
+genind<-vcfR2genind(vcf)
+genind@pop<-as.factor(meta$Location)
+save(genind, file="0009/genind.rda")
+```
+
+```{r}
+load("0009/genind.rda")
+```
+
+### PCA
+```{r}
+gen<-genind
+X <- tab(gen, NA.method="mean")
+
+pca1 <- dudi.pca(X,scannf=FALSE,scale=FALSE,nf=3)
+plot(pca1$li)
+```
+
+```{r}
+pcdf<-as_tibble(pca1$l1) %>% rename(PC1=RS1, PC2=RS2, PC3=RS3)
+pcdf$Site<-pop(gen)
+pcdf<-pcdf %>% separate(Site, into=c("Area","Site"), sep=",", remove=FALSE)
+
+eigens<-as_tibble(pca1$eig) %>% rename(Eigen=value) %>% mutate(Porportion=Eigen/sum(Eigen)*100)
+
+ggplot(pcdf)+geom_point(aes(x=PC1, y=PC2, color=Site, shape=Area), alpha=0.75, size=2)+
+  xlab(paste0("PC1 ", round(eigens$Porportion[1],2),"%")) +
+  ylab(paste0("PC2 ", round(eigens$Porportion[2],2),"%")) +
+  theme_bw()+
+  theme(panel.grid=element_blank()) +
+  theme(axis.title = element_text(face="bold")) +
+  theme(legend.title = element_text(face="bold"))
+
+ggplot(pcdf)+geom_point(aes(x=PC1, y=PC3, color=Site, shape=Area), alpha=0.75, size=2)+
+  xlab(paste0("PC1 ", round(eigens$Porportion[1],2),"%")) +
+  ylab(paste0("PC3 ", round(eigens$Porportion[3],2),"%")) +
+  theme_bw()+
+  theme(panel.grid=element_blank()) +
+  theme(axis.title = element_text(face="bold")) +
+  theme(legend.title = element_text(face="bold"))
+```
+
+###DAPC
+
+```{r}
+grp<-find.clusters(gen, n.pca = 200, n.clust = 3)
+
+table(pop(gen), grp$grp)
+```
+```{r}
+dft<-as.data.frame(table(pop(gen), grp$grp)) %>% as_tibble() %>%
+  rename(Location=Var1, Assignment=Var2, Number=Freq)
+
+ggplot(dft, aes(y=Location, x=Assignment)) +
+  theme(axis.title.y = element_text(size = rel(2))) +
+  theme(axis.title.x = element_text(size = rel(2))) +
+  theme(axis.text.x = element_text(angle = 90)) +
+  labs(x="\nInferred Group", y="Sampling Location\n") +
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.background = element_blank(), axis.line = element_line(colour = "black")) +
+  theme(text=element_text(family='Times')) +
+  theme(axis.text.x= element_text(face="bold", size=10, vjust = 0.5)) +
+  theme(axis.text.y= element_text(face="bold", size=10)) +
+  geom_point(aes(x=Assignment, y=Location, size=Number)) +
+  geom_text(aes(x=Assignment, y=Location, label=Number), color="white", size=3) +
+  scale_size_area(limits=c(1,20), breaks=c(0,5,10,15,20))
+
+
+```
+
+```{r}
+dapc1 <- dapc(gen, grp$grp, n.pca=200, n.da=3)
+
+scatter(dapc1)
+```
+
+## g2 inbreeding stat
+can use inbreedR
+https://cran.r-project.org/web/packages/inbreedR/vignettes/inbreedR_step_by_step.html   
+The value g2 expresses level of Identity Disequilibrum and is com- puted like the covariance of heterozygosity between markers standardized by their average heterozygosity [35]. We analysed Identity Disequilibrium on extended DArTseq SNP dataset (< 70% NA; MAF > 5%) by inbreedR 0.3.2 R package with g2_snps function [36,37]. Because of nature of g2 selfing rate estimation only populations with heterozygote SNP frequency in population more than 1% were analysed. One hundred bootstraps were used to estimate 95% confidence intervals. Selfing rate were estimated based on g2 values according David [35].     
+
+```{r}
+cf_file <- "outputs/1300/recode.vcf"
+# read vcf
+vcf <- read.vcfR(vcf_file, verbose = FALSE )
+# extract genotypes
+gt <- extract.gt(vcf)
+# transpose and data.frame
+gt <- as.data.frame(t(gt), stringsAsFactors = FALSE)
+# NA handling
+gt[gt == "."] <- NA
+# split columns
+snp_geno <- do.call(cbind, apply(gt, 2, function(x) colsplit(x, "/", c("a","b"))))
+# convert
+mouse_snp_genotypes <- inbreedR::convert_raw(snp_geno)
+# check data
+check_data(mouse_snp_genotypes)
+```
+
+Need to subset to pops, and maybe filter for minMaf again??
+
+```{r}
+g2_mouse_snps <- g2_snps(mouse_snp_genotypes, nperm = 100, nboot = 10, 
+                         CI = 0.95, parallel = FALSE, ncores = NULL)
+```
