@@ -1,0 +1,14 @@
+---
+title: "100-genome-align"
+author: "Mac Campbell"
+date: "8/10/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
+```
+
+## Reference Genome 
+How does our reference genome compare to our de novo assembly at this point?
+

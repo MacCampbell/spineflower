@@ -1,0 +1,211 @@
+---
+title: "0009.2-pop-stats"
+author: "Mac Campbell"
+date: "8/4/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, missing=FALSE)
+```
+
+```{r}
+library(tidyverse)
+library(poppr)
+library(inbreedR)
+```
+
+## Poppr
+```{r}
+load("0009/genind.rda")
+```
+
+```{r, eval=FALSE}
+table<-poppr(genind)
+save(table, file="0009/table.rda")
+```
+```{r}
+load("0009/table.rda")
+table
+```
+
+recode.reheadered.vcf has names like LF30   
+Set up test pop, pop 6.   
+
+```{sh, eval=FALSE}
+grep "Pop 6" ../meta/182.csv | cut -f 2 -d ',' > pop6.txt
+grep "Newhall" ../meta/182.csv | cut -f 2 -d ',' > newhall.txt
+grep "Upper Las Virgenes Canyon" ../meta/182.csv | cut -f 2 -d ','  > ulvc.txt
+bcftools +prune -l 0.9 -w 10000 recode.reheadered.vcf  -Ov -o recode.reheadered.pruned.vcf
+bcftools view -i 'F_MISSING<0.05'  recode.reheadered.pruned.vcf > reduced.vcf
+
+vcf-subset -c pop6.txt reduced.vcf > pop6.vcf
+vcf-subset -c newhall.txt reduced.vcf > newhall.vcf
+vcf-subset -c ulvc.txt reduced.vcf > ulvc.vcf
+
+bcftools view -i 'MAF > 0.1 && F_MISSING<0.05' ulvc.vcf -Ov -o ulvc.maf.vcf
+bcftools view -i 'MAF > 0.1 && F_MISSING<0.05' newhall.vcf -Ov -o newhall.maf.vcf
+bcftools view -i 'MAF > 0.1 && F_MISSING<0.05' pop6.vcf -Ov -o pop6.maf.vcf
+```
+
+## g2 inbreeding stat
+can use inbreedR
+https://cran.r-project.org/web/packages/inbreedR/vignettes/inbreedR_step_by_step.html   
+The value g2 expresses level of Identity Disequilibrum and is com- puted like the covariance of heterozygosity between markers standardized by their average heterozygosity [35]. We analysed Identity Disequilibrium on extended DArTseq SNP dataset (< 70% NA; MAF > 5%) by inbreedR 0.3.2 R package with g2_snps function [36,37]. Because of nature of g2 selfing rate estimation only populations with heterozygote SNP frequency in population more than 1% were analysed. One hundred bootstraps were used to estimate 95% confidence intervals. Selfing rate were estimated based on g2 values according David [35].     
+
+```{r}
+vcf_file <- "0009/pop6.vcf"
+#vcf_file <- "0009/recode.reheadered.pruned.vcf"
+# read vcf
+vcf <- read.vcfR(vcf_file, verbose = FALSE )
+# extract genotypes
+gt <- extract.gt(vcf)
+# transpose and data.frame
+gt <- as.data.frame(t(gt), stringsAsFactors = FALSE)
+# NA handling
+gt[gt == "."] <- NA
+# split columns
+snp_geno <- do.call(cbind, apply(gt, 2, function(x) colsplit(x, "/", c("a","b"))))
+# convert
+mouse_snp_genotypes <- inbreedR::convert_raw(snp_geno)
+# check data
+check_data(mouse_snp_genotypes)
+```
+
+If subsetting, maybe need to filter SNPs again. Also, what about linked snps? Also, what about a minimum presence of heterozygotes at the locus.
+
+```{r}
+g2_mouse_snps <- g2_snps(mouse_snp_genotypes, nperm = 100, nboot = 100, 
+                         CI = 0.95, parallel = FALSE, ncores = NULL)
+```
+
+```{r}
+g<-g2_mouse_snps
+g
+```
+
+Pruning didn't change significance. Looks like g2 > 0, so that's great.
+For ULVC:
+g2 = 0.08165891, se = 0.01275026
+
+confidence interval 
+      2.5%      97.5% 
+0.06518028 0.10436240 
+
+p (g2 > 0) = 1 (based on 99 permutations)
+
+For Newhall
+g2 = 0.1024091, se = 0.01001718
+
+confidence interval 
+      2.5%      97.5% 
+0.08669732 0.11859502 
+
+p (g2 > 0) = 1 (based on 99 permutations)
+
+Maybe split and calculate by sampling site??
+
+ULVC Pop6 
+Calculation of identity disequilibrium with g2 for SNP data
+-----------------------------------------------------------
+
+Data: 16 observations at 5016 markers
+Function call = g2_snps(genotypes = mouse_snp_genotypes, nperm = 100, nboot = 10,     CI = 0.95, parallel = FALSE, ncores = NULL)
+
+g2 = 0.04178853, se = 0.02260121
+
+confidence interval 
+       2.5%       97.5% 
+0.002982364 0.071279137 
+
+p (g2 > 0) = 1 (based on 99 permutations)
+
+
+## Automation
+
+I need to get g2 for all sites.
+
+Let's compute.     
+
+_1_ Get all pops into filtered .vcf files      
+see 0009.3 all in vcf/$cleanpop.maf.vcf 
+_2_ Calc g2 and save somwhere
+
+```{r, eval=FALSE}
+vcfs<-list.files(path="0009/vcf", pattern = ".maf.vcf")
+file<-vcfs[1]
+g2fun <- function(file) {
+  #get a clean name
+  stem<-gsub(".maf.vcf","",file)
+  
+vcf_file <- paste0("0009/vcf/",file)
+
+# read vcf
+vcf <- read.vcfR(vcf_file, verbose = FALSE )
+
+# extract genotypes
+gt <- extract.gt(vcf)
+
+# transpose and data.frame
+gt <- as.data.frame(t(gt), stringsAsFactors = FALSE)
+
+# NA handling
+gt[gt == "."] <- NA
+
+# split columns
+snp_geno <- do.call(cbind, apply(gt, 2, function(x) colsplit(x, "/", c("a","b"))))
+
+# convert
+genotypes <- inbreedR::convert_raw(snp_geno)
+# check data
+#check_data(genotypes)
+#Throws error with no missing data
+
+# get stats
+g <- g2_snps(genotypes, nperm = 100, nboot = 100, 
+                         CI = 0.95, parallel = FALSE, ncores = NULL)
+
+dfg<-g$g2_boot %>% as_tibble() %>% rename(g2=value) 
+dfg$g2mean<-g$g2
+dfg$StandardError<-g$g2_se
+dfg$SampleSize<-g$nobs
+dfg$Loci<-g$nloc
+dfg$Pval<-g$p_val
+dfg <- dfg  %>% mutate(Pop=paste0(stem))
+
+write_csv(dfg, file=paste0("0009/vcf/",stem,"g2stats.csv"))
+}
+
+lapply(vcfs, g2fun)
+```
+
+
+
+
+_3_ make boxplot (boxplot(g$g2_boot)), reporting g2 and se
+
+```{r}
+data <- list.files(path = "0009/vcf/", pattern = "*.csv", full.names = TRUE) %>% 
+  lapply(read_csv) %>%                                            
+  bind_rows                                                        
+```
+
+There is a p-value, p (g2 > 0) = 1 , low values of this means P (g2 > 0) is not certain.
+
+```{r}
+data %>% select(Pop, g2mean, StandardError, SampleSize, Loci) %>% unique()
+data$Pop<-gsub("UpperLasVirgenesCanyon","ULVC",data$Pop)
+```
+```{r}
+ggplot(data) +
+  geom_boxplot(aes(x=Pop, y=g2)) +
+  theme_bw() +
+  theme(panel.grid = element_blank()) +
+  theme(axis.text.x = element_text(angle=45, vjust=1, hjust=1)) +
+  xlab("Sampling Location") +
+  ylab("g2\n") 
+
+ggsave("0009/g2.png")
+  
+```
+

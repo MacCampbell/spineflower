@@ -1,4 +1,7 @@
 #Files and directories
+/outputs/
+/data/
+
 1000_scripts
 1001_sequence 
 1002_samples

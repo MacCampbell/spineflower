@@ -90,7 +90,7 @@ ggplot(pcdf)+geom_point(aes(x=PC1, y=PC3, color=Site, shape=Area), alpha=0.75, s
 ###DAPC
 
 ```{r}
-grp<-find.clusters(gen, n.pca = 200, n.clust = 3)
+grp<-find.clusters(gen, n.pca = 175, n.clust = 3)
 
 table(pop(gen), grp$grp)
 ```
@@ -119,34 +119,4 @@ ggplot(dft, aes(y=Location, x=Assignment)) +
 dapc1 <- dapc(gen, grp$grp, n.pca=200, n.da=3)
 
 scatter(dapc1)
-```
-
-## g2 inbreeding stat
-can use inbreedR
-https://cran.r-project.org/web/packages/inbreedR/vignettes/inbreedR_step_by_step.html   
-The value g2 expresses level of Identity Disequilibrum and is com- puted like the covariance of heterozygosity between markers standardized by their average heterozygosity [35]. We analysed Identity Disequilibrium on extended DArTseq SNP dataset (< 70% NA; MAF > 5%) by inbreedR 0.3.2 R package with g2_snps function [36,37]. Because of nature of g2 selfing rate estimation only populations with heterozygote SNP frequency in population more than 1% were analysed. One hundred bootstraps were used to estimate 95% confidence intervals. Selfing rate were estimated based on g2 values according David [35].     
-
-```{r}
-cf_file <- "outputs/1300/recode.vcf"
-# read vcf
-vcf <- read.vcfR(vcf_file, verbose = FALSE )
-# extract genotypes
-gt <- extract.gt(vcf)
-# transpose and data.frame
-gt <- as.data.frame(t(gt), stringsAsFactors = FALSE)
-# NA handling
-gt[gt == "."] <- NA
-# split columns
-snp_geno <- do.call(cbind, apply(gt, 2, function(x) colsplit(x, "/", c("a","b"))))
-# convert
-mouse_snp_genotypes <- inbreedR::convert_raw(snp_geno)
-# check data
-check_data(mouse_snp_genotypes)
-```
-
-Need to subset to pops, and maybe filter for minMaf again??
-
-```{r}
-g2_mouse_snps <- g2_snps(mouse_snp_genotypes, nperm = 100, nboot = 10, 
-                         CI = 0.95, parallel = FALSE, ncores = NULL)
 ```
