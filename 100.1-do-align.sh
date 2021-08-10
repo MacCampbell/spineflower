@@ -4,8 +4,8 @@
 #SRR1613242_1  SRR1613242_2
 
 #Requires a path to indexed reference genome (ref, $2)
-
-#bash ../doAlign.sh tester.txt $HOME/genomes/chinook/GCF_002872995.1_Otsh_v1.0_genomic.fna.gz
+#In /home/maccamp/spineflower/data
+#bash ../100.1-do-align.sh samples $HOME/genomes/fagopyrum/GCA_002319775.1_Ft1.0_genomic.fna.gz
 
 list=$1
 ref=$2
@@ -24,7 +24,7 @@ do
         c2=$2
 
        echo "#!/bin/bash -l
-       bwa mem $ref ${c1}.fastq ${c2}.fastq | samtools view -Sb | samtools sort - -o ${c1}.sort.bam
+       bwa mem $ref ${c1}.1.fq ${c2}.2.fq | samtools view -Sb | samtools sort - -o ${c1}.sort.bam
        samtools index ${c1}.sort.bam
        samtools view -f 0x2 -b ${c1}.sort.bam | samtools rmdup - ${c1}.sort.flt.bam
        samtools index ${c1}.sort.flt.bam" > ${c1}.sh

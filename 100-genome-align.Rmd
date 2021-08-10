@@ -10,5 +10,16 @@ knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
 ```
 
 ## Reference Genome 
-How does our reference genome compare to our de novo assembly at this point?
 
+How does our reference genome compare to our de novo assembly at this point?     
+
+There is a chromosome-level assembly of Fagopyrum: GCA_002319775.1. Downloading and indexing in ~/genomes/fagopyrum     
+
+I'll align the 187 pop gen samples to it and then see how snp numbers compare.      
+
+Not forgetting to remove paralogs of course    
+
+
+## Wayward samples
+
+I need to find a bunch of samples that have to do with parentage.     
