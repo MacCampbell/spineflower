@@ -5,7 +5,7 @@
 #bwa index 1003_stacks/catalog.fa.gz
 mkdir 0010
 
-ls data/concat/*A.fq | sed 's/_.A.fq//' | sed 's:data/concat/::' > 0010/samplelist
+#ls data/concat/*A.fq | sed 's/_RA.fq//' | sed 's:data/concat/::' > 0010/samplelist
 
 wc=$(wc -l 0010/samplelist | awk '{print $1}')
 x=1
@@ -21,8 +21,8 @@ do
 	c3=$3
 
 echo "#!/bin/bash
-#SBATCH -o slurm_outs/align_${c1}-%j.out
-bwa mem 1003_stacks/catalog.fa. data/concat/${c1}_.A.fq 1002_samples/${c1}_.RB.fq > 0010/${c1}.sam
+#SBATCH -o 0010/align_${c1}-%j.out
+bwa mem 1003_stacks/catalog.fa. data/concat/${c1}_RA.fq 1002_samples/${c1}_RB.fq > 0010/${c1}.sam
 samtools view -bS 0010/${c1}.sam > 0010/${c1}.bam
 samtools sort  0010/${c1}.bam > 0010/${c1}_sorted.bam
 samtools view -b -f 0x2 0010/${c1}_sorted.bam > 0010/${c1}_sorted_proper.bam
@@ -33,7 +33,7 @@ ppalign=\$(samtools view -c 0010/${c1}_sorted_proper.bam)
 rmdup=\$(samtools view -c 0010/${c1}_sorted_proper_rmdup.bam)
 echo \"\${reads},\${ppalign},\${rmdup}\" > 0010/${c1}.stats" > aln_${x}.sh
 sbatch -p high -t 24:00:00 aln_${x}.sh
-rm aln_${x}.sh
+#rm aln_${x}.sh
 sleep 5s
 	x=$(( $x + 1 ))
 done
