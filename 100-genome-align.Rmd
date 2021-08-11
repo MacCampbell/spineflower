@@ -12,6 +12,9 @@ knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
 
 ```{r}
 library(tidyverse)
+library(vcfR)
+library(adegenet)
+library(reshape2)
 ```
 
 ## Reference Genome 
@@ -93,7 +96,8 @@ Analyze, first by generating bamlist
 
 ```{r}
 meta<-read_csv("meta/182.csv") %>% mutate(GenomeAlign=paste0("data/",Label,".dedup.bam"))
-
+meta<-meta %>% separate(Location, into=c("Area","Site"), sep=",", remove=FALSE)
+meta$Site<-trimws(meta$Site)
 bamlist<-meta %>% select(GenomeAlign)
 
 write_tsv(bamlist, "bamlists/182-genome.bamlist", col_names=FALSE)
@@ -103,21 +107,152 @@ Generate outputs. I don't think paralogs are going to do much, but will generate
 
 ```{sh, eval=FALSE}
 ##Generating SFS
-srun -p high -t 48:00:00 --mem=16G --nodes=2 $HOME/angsd/angsd -P 12 -bam bamlists/182-genome.bamlist -doSaf 1 -out outputs/100/with-paralogs -anc $HOME/genomes/fagopyrum/GCA_002319775.1_Ft1.0_genomic.fna.gz -GL 2 -minMapQ 10 -minQ 20 > outputs/100/with-paralogs-saf.stdout 2> outputs/100/with-paralogs-saf.stderr
+srun -p high -t 48:00:00 --mem=16G --nodes=2 $HOME/angsd/angsd -P 12 -bam bamlists/182-genome.bamlist -doSaf 1 -out outputs/100/with-paralogs -anc $HOME/genomes/fagopyrum/GCA_002319775.1_Ft1.0_genomic.fna -GL 2 -minMapQ 10 -minQ 20 > outputs/100/with-paralogs-saf.stdout 2> outputs/100/with-paralogs-saf.stderr &
 
 srun  -p bigmemh --mem-per-cpu=10G --mem=32G -t 12:00:00 $HOME/angsd/misc/realSFS outputs/100/with-paralogs.saf.idx -maxIter 100 -P 1 -fold 1 >  outputs/100/with-paralogs.sfs 2> outputs/100/realSFS.stderr
 
 
 ##Generating Beagle file
-srun  -p bigmemh --mem-per-cpu=10G --mem=32G -t 12:00:00 $HOME/angsd/angsd -P 4 -bam bamlists/182-genome.bamlist -out outputs/100/pca -minInd 164 -GL 1 -doGlf 2  -doMajorMinor 1 -doMaf 2 -SNP_pval 1e-6 -minMapQ 10 -minQ 20  > outputs/100/pca.stdout 2> outputs/100/pca.stderr &
 
+#Wow! 577 sites with -minInd 164 and -SNP_pval 1e-6
+#Trying -minInd 137 and -SNP_pval 1e-2, 828 sites
+#This worked when bam files weren't indexed (!) Trying again after indexing *.dedup.bam files
+srun  -p bigmemh --mem-per-cpu=10G --mem=32G -t 12:00:00 $HOME/angsd/angsd -P 4 -bam bamlists/182-genome.bamlist -out outputs/100/pca -minInd 137 -GL 1 -doGlf 2  -doMajorMinor 1 -doMaf 2 -SNP_pval 1e-2 -minMapQ 10 -minQ 20  > outputs/100/pca.stdout 2> outputs/100/pca.stderr &
+
+#362 used with pca the first time, 465 the second.
 srun -p high -t 01:00:00 python $HOME/pcangsd/pcangsd.py -beagle outputs/100/pca.beagle.gz -kinship -admix -o outputs/100/pca-kin -threads 10
+
+
 
 srun -p high -t 01:00:00 python $HOME/pcangsd/pcangsd.py -beagle outputs/100/pca.beagle.gz -relate outputs/100/pca-kin.kinship.npy -admix -o outputs/100/pca-relate -threads 10
 ```
 
 
+### PCA
 
+```{r}
+cov<-read_delim("outputs/100/pca-kin.cov", col_names=FALSE, delim=" ") %>% as.matrix()
+```
+
+```{r}
+#' @param samples character vector with the individuals IDs in the order in which
+#' they were passed in the bamlist to angsd.
+#' @param cov covariance matrix
+covar2pcs <- function(samples, cov) {
+  
+  
+  eig <- eigen(cov, symm = TRUE)
+  PC <- as.data.frame(eig$vectors) %>%
+    as_tibble() %>%
+    setNames(sprintf("PC-%02d", 1:ncol(.)))
+  
+  samtib <- tibble(sample = samples)
+  
+  list(
+    PCs = bind_cols(samtib, PC),
+    eigevalues = eig$values
+  )
+}
+```
+
+```{r}
+pca <- covar2pcs(meta$Label, cov)
+
+pca_long <- pca$PCs %>%
+  tidyr::gather(., key = "PC", "val", -sample)
+
+# then expand a grid of the possible comparisons (ordered)
+expg <- expand.grid(sample = pca$PCs$sample,
+                    PCx = sprintf("PC-%02d", 1:6),
+                    PCy = sprintf("PC-%02d", 1:6),
+                    stringsAsFactors = FALSE) %>%
+  tibble::as_tibble()
+
+# then left join the pca results onto that
+pca_pairs <- dplyr::left_join(expg, pca_long, by = c("sample", "PCx" = "PC")) %>%
+  dplyr::rename(val_x = val) %>%
+  dplyr::left_join(pca_long, by = c("sample", "PCy" = "PC")) %>%
+  dplyr::rename(val_y = val)
+
+npc <- 3
+pc <- pca_pairs %>%
+  filter( (PCx %in% sprintf("PC-%02d", 1:npc)) & 
+            (PCy %in% sprintf("PC-%02d", 1:npc)) ) %>%
+  left_join(., meta, by = c("sample" = "Label")) %>%
+  mutate(group = Location) 
+
+eig <- eigen(cov, symm = TRUE)
+var <-eig$values/sum(eig$values)
+cumvar <-cumsum(eig$values)/sum(eig$values)
+
+head(var)
+head(cumvar) 
+```
+
+```{r}
+ggplot(pc) +
+  geom_point(aes(x=val_x, y=val_y, fill=Site, shape=Area), alpha=0.75) +
+  theme_bw() +
+  scale_shape_manual(values = c(21,24)) +
+  facet_grid(PCx ~ PCy) +
+  guides(fill = guide_legend(override.aes=list(shape=22))) 
+
+ggsave("outputs/100/pca.pdf", width=10, height=8)
+```
+
+
+Now let's up the SNP calls with freebayes. Or not.
+
+````{sh, eval=FALSE}
+
+srun -p bigmemh --mem-per-cpu=10G --mem=32G -t 12:00:00 freebayes-parallel <(fasta_generate_regions.py $HOME/genomes/fagopyrum/GCA_002319775.1_Ft1.0_genomic.fna 100000) 12  \
+-f $HOME/genomes/fagopyrum/GCA_002319775.1_Ft1.0_genomic.fna -L bamlists/182-genome.bamlist > outputs/100/freebayes.vcf 2> outputs/100/freebayes.err &
+
+#wants to write to unaccessible directory? cat: /dev/fd/63: No such file or directory
+#Using non parallel version
+srun -p bigmemh --mem-per-cpu=10G --mem=32G -t 12:00:00 freebayes -f  $HOME/genomes/fagopyrum/GCA_002319775.1_Ft1.0_genomic.fna \
+--region CM008279.1  -L bamlists/182-genome.bamlist > outputs/100/freebayes.vcf 2> outputs/100/freebayes.err &
+#4564 variants (including indels unfiltered across chrom1)
+```
+Have 28957 variants, but only one individual. So, we need to come up with some read groups.
+
+```{sh, eval=FALSE}
+srun  -p high -t 6:00:00 ls | grep dedup.bam | grep -v "bai" | while read line; do samtools addreplacerg $line -r ID:"`basename $line .dedup.bam`" | samtools view - -b > "`basename $line .dedup.bam`".rg.bam; samtools index "`basename $line .dedup.bam`".rg.bam; done;
+
+ ls | grep rg.bam > rgs.bamlist
+  cat rgs.bamlist | while read line; do echo "data/"$line >> rgs.path.bamlist; done;
+  
+srun -p bigmemh --mem-per-cpu=10G --mem=32G -t 12:00:00 freebayes -f  $HOME/genomes/fagopyrum/GCA_002319775.1_Ft1.0_genomic.fna \
+ -L data/rgs.path.bamlist > outputs/100/freebayes.vcf 2> outputs/100/freebayes.err &
+```
+
+Malformed read group header!
+Sigh.     
+
+```{sh}
+vcftools --vcf outputs/100/freebayes.vcf --remove-indels --max-alleles 2  --maf 0.05 --max-missing .1 --recode --out outputs/100/freebayes-filtered-90
+```
+
+1578 Sites @ 75% 
+1578 Sites at 90%
+
+Let's take a look:
+
+```{sh, eval=FALSE}
+cut -f 2 -d ',' meta/182.csv | perl -pe 's/Label\n//g' > outputs/100/samples.txt 
+bcftools reheader --samples samples.txt -o outputs/100/recode.reheadered.vcf outputs/100/freebayes-filtered-90.recode.vcf
+```
+
+```{r}
+meta182<-read_csv("meta/182.csv")
+```
+
+```{r, eval=FALSE}
+vcf<-read.vcfR(file="outputs/100/freebayes-filtered-90.recode.vcf")
+genind<-vcfR2genind(vcf)
+genind@pop<-as.factor(meta$Location)
+save(genind, file="outputs/100/genind.rda")
+```
 ## Wayward samples
 
 I need to find a bunch of samples that have to do with parentage. Plates BMAG058 and BMAG60    
@@ -162,3 +297,34 @@ VCC2-P
 
 What about in here?
 /share/schreierlab/Spineflower/ANGSD_analysis/BMAG060, probably on Berbera
+
+Found samples used in colony:
+concat_AM14-O_RA.sort.proper.rmdup.bam
+concat_AM14-P_RA.sort.proper.rmdup.bam
+concat_AM6-O_RA.sort.proper.rmdup.bam
+concat_AM6-P_RA.sort.proper.rmdup.bam
+concat_GV5-O_RA.sort.proper.rmdup.bam
+concat_GV5-P_RA.sort.proper.rmdup.bam
+concat_Lion12-P_RA.sort.proper.rmdup.bam
+concat_Lion7-O_RA.sort.proper.rmdup.bam
+concat_LM1-10-O_RA.sort.proper.rmdup.bam
+concat_LM1-10-P_RA.sort.proper.rmdup.bam
+concat_LM1-22-O_RA.sort.proper.rmdup.bam
+concat_LM1-22-P_RA.sort.proper.rmdup.bam
+concat_LM2-8-O_RA.sort.proper.rmdup.bam
+concat_LM3-12-P_RA.sort.proper.rmdup.bam
+concat_LM3-16-O_RA.sort.proper.rmdup.bam
+concat_LM4-14-O_RA.sort.proper.rmdup.bam
+concat_LM4-16-O_RA.sort.proper.rmdup.bam
+concat_LM5-13-O_RA.sort.proper.rmdup.bam
+concat_LM5-13-P_RA.sort.proper.rmdup.bam
+concat_LM5-4-O_RA.sort.proper.rmdup.bam
+concat_LM6-9-O_RA.sort.proper.rmdup.bam
+concat_LM6-9-P_RA.sort.proper.rmdup.bam
+concat_POT1-O_RA.sort.proper.rmdup.bam
+concat_POT1-P_RA.sort.proper.rmdup.bam
+concat_SMG2-O_RA.sort.proper.rmdup.bam
+concat_SMG2-P_RA.sort.proper.rmdup.bam
+
+Now in data/concat
+for f in temp/*fastq; do mv -- "$f" "${f%.fastq}.fq"; done;

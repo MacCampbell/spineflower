@@ -1,0 +1,13 @@
+---
+title: "0010-parentage"
+author: "Mac Campbell"
+date: "August 11, 2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
+```
+
+## Aligning fastqs in data/concat
+
