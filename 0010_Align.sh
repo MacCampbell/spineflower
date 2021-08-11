@@ -1,6 +1,6 @@
 #!/bin/bash -l
 #SBATCH -t 48:00:00
-#SBATCH -o slurm_outs/align-%j.out
+#SBATCH -o 0010/align-%j.out
 
 #mkdir 0010
 #bwa index 1003_stacks/catalog.fa.gz
