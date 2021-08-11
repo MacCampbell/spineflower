@@ -6,7 +6,7 @@
 #bwa index 1003_stacks/catalog.fa.gz
 
 
-#ls data/concat/*A.fq | sed 's/_RA.fq//' | sed 's:data/concat/::' > 0010/samplelist
+ls data/concat/*A.fq | sed 's/_RA.fq//' | sed 's:data/concat/::' > 0010/samplelist
 
 wc=$(wc -l 0010/samplelist | awk '{print $1}')
 x=1
@@ -23,7 +23,7 @@ do
 
 echo "#!/bin/bash
 #SBATCH -o 0010/align_${c1}-%j.out
-bwa mem 0010/catalog.fa. data/concat/${c1}_RA.fq 1002_samples/${c1}_RB.fq > 0010/${c1}.sam
+bwa mem 0010/catalog.fa data/concat/${c1}_RA.fq 1002_samples/${c1}_RB.fq > 0010/${c1}.sam
 samtools view -bS 0010/${c1}.sam > 0010/${c1}.bam
 samtools sort  0010/${c1}.bam > 0010/${c1}_sorted.bam
 samtools view -b -f 0x2 0010/${c1}_sorted.bam > 0010/${c1}_sorted_proper.bam
