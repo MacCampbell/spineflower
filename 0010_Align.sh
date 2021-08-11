@@ -31,8 +31,8 @@ samtools index 0010/${c1}_sorted_proper_rmdup.bam 0010/${c1}_sorted_proper_rmdup
 reads=\$(samtools view -c 0010/${c1}_sorted.bam)
 ppalign=\$(samtools view -c 0010/${c1}_sorted_proper.bam)
 rmdup=\$(samtools view -c 0010/${c1}_sorted_proper_rmdup.bam)
-echo \"\${reads},\${ppalign},\${rmdup}\" > 0010/${c1}.stats" > aln_${x}.sh
-sbatch -p high -t 24:00:00 aln_${x}.sh
+echo \"\${reads},\${ppalign},\${rmdup}\" > 0010/${c1}.stats" > $HOME/spineflower/aln_${x}.sh
+sbatch -p high -t 24:00:00 $HOME/spineflower/aln_${x}.sh
 #rm aln_${x}.sh
 sleep 5s
 	x=$(( $x + 1 ))
