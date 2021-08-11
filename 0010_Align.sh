@@ -5,7 +5,7 @@
 mkdir 0010
 cp 1003_stacks/catalog.fa 0010/catalog.fa
 
-bwa index 0010 catalog.fa
+bwa index 0010/catalog.fa
 
 
 ls data/concat/*A.fq | sed 's/_RA.fq//' | sed 's:data/concat/::' > 0010/samplelist
