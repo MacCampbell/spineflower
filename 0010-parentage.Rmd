@@ -9,5 +9,19 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
 ```
 
+```{r}
+library(tidyverse)
+```
+
 ## Aligning fastqs in data/concat
 
+See 0010_Align.sh     
+
+Missing AM6-O, AM6-P
+
+```{r}
+stats<-read_csv("0010/samplelist.stats", col_names = c("Reads","Align","DedupReads"))
+samples<-read_tsv("0010/samplelist", col_names=c("Sample"))
+
+comb<-bind_cols(samples, stats)
+```
