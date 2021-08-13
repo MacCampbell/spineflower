@@ -17,11 +17,50 @@ library(tidyverse)
 
 See 0010_Align.sh     
 
-Missing AM6-O, AM6-P
+Missing AM6-O, AM6-P running 0010_Align.sh for these. Hmm... May need to make sure samplelist has a newline at the end?
+Editing script and redoing.      
+
+Don't forget to use -rf 0007/nonparalogous-contigs.tsv with ANGSD snp calling.
+
+Now we have everything we want, but, we don't have a proper stats file.
+
+
 
 ```{r}
 stats<-read_csv("0010/samplelist.stats", col_names = c("Reads","Align","DedupReads"))
 samples<-read_tsv("0010/samplelist", col_names=c("Sample"))
 
-comb<-bind_cols(samples, stats)
+#ARGGHHH doesn't simple delimit
+comb<-bind_cols(samples, stats) 
+#%>% separate(Sample, into=c("Source","Type"), sep="-", remove=FALSE)
+```
+
+
+Need to pare to O/P pairs.
+
+```{r}
+highrollers<-comb %>% filter(DedupReads > 40000)
+write_tsv(highrollers, file="0010/highrollers.txt")
+```
+
+```{r}
+seq<-read_tsv("0010/toGenotype.txt")
+```
+
+Create a bamlist: 0010/concat_AM6-P_sorted_proper_rmdup.bam
+
+```{r}
+seq$File<-gsub(".stats","_sorted_proper_rmdup.bam", seq$Sample)
+seq <- seq %>% mutate(Path=paste0("0010/",File))
+write_tsv(select(seq,Path), "bamlists/parentage.bamlist",col_names = FALSE)
+```
+
+
+Following https://ryanpeek.org/radseq/pipeline_colony.html#outline:_the_bare_bones     
+
+`~/bin/angsd -bam $list -GL 1 -out $output -doMaf 2 -minInd 20 -doMajorMinor 1 -SNP_pval 0.000001 -doGeno 4 -doPost 2 -postCutoff 0.95 -minMaf 0.005`
+
+```{sh, eval=FALSE}
+srun -p high -t 48:00:00 --mem=16G --nodes=2 $HOME/angsd/angsd -P 12 -bam bamlists/parentage.bamlist -GL 1 -out 0010/parentage -doMaf 2 -minInd 22 \
+-doMajorMinor 1 -SNP_pval 1e-2 -doGeno 4 -doPost 2 -postCutoff 0.95 -minMaf 0.005 -minMapQ 10 -minQ 20 > 0010/parentage.stdout 2> 0010/parentage.stderr &
 ```
