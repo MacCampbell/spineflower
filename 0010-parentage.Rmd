@@ -61,6 +61,8 @@ Following https://ryanpeek.org/radseq/pipeline_colony.html#outline:_the_bare_bon
 `~/bin/angsd -bam $list -GL 1 -out $output -doMaf 2 -minInd 20 -doMajorMinor 1 -SNP_pval 0.000001 -doGeno 4 -doPost 2 -postCutoff 0.95 -minMaf 0.005`
 
 ```{sh, eval=FALSE}
-srun -p high -t 48:00:00 --mem=16G --nodes=2 $HOME/angsd/angsd -P 12 -bam bamlists/parentage.bamlist -GL 1 -out 0010/parentage -doMaf 2 -minInd 22 \
+srun -p high -t 48:00:00 --nodes=2 $HOME/angsd/angsd -P 12 -bam bamlists/parentage.bamlist -GL 1 \
+-out 0010/parentage -doMaf 2 -minInd 22 -rf 0007/nonparalogous-contigs.tsv \
 -doMajorMinor 1 -SNP_pval 1e-2 -doGeno 4 -doPost 2 -postCutoff 0.95 -minMaf 0.005 -minMapQ 10 -minQ 20 > 0010/parentage.stdout 2> 0010/parentage.stderr &
 ```
+
