@@ -130,6 +130,50 @@ ggplot(pc) +
   scale_shape_manual(values = c(21,24)) +
   facet_grid(PCx ~ PCy) +
   guides(fill = guide_legend(override.aes=list(shape=22))) 
+
+ggsave("0009/pc.pdf", width=10, height=8)
+```
+
+
+```{r}
+sub12<-pc %>% filter( (PCx =="PC-01") & (PCy =="PC-02") )
+
+centers12<-sub12 %>% group_by(Site) %>% mutate(MeanX=mean(val_x), MeanY=mean(val_y)) %>% 
+  select(Site, MeanX, MeanY) %>% unique()
+
+
+pc12<-ggplot(sub12, aes(x = val_x, y = val_y)) +
+  geom_point(aes( fill=Site, shape=Area), size = 2, alpha=0.75) +
+  geom_text_repel(data=centers12, aes(x=MeanX, y=MeanY, label=Site), color="black", fontface='bold', size=3)+
+  scale_fill_discrete(na.value = "white") + 
+  scale_shape_manual(values = c(21,24)) +
+  theme_bw()+
+  theme(panel.grid=element_blank())+
+  xlab(paste("PC1", " ", round((100*var[1]),2), "%", sep = ""))+
+  ylab(paste("PC2", " ", round((100*var[2]),2), "%", sep = ""))+
+  theme(legend.position = "")+
+  theme(plot.title = element_text(hjust = 0.5))
+
+
+
+sub13<-pc %>% filter( (PCx =="PC-01") & (PCy =="PC-03") )
+centers13<-sub13 %>% group_by(Site) %>% mutate(MeanX=mean(val_x), MeanY=mean(val_y)) %>% select(Site, MeanX, MeanY) %>% unique()
+
+pc13<-ggplot(sub13, aes(x = val_x, y = val_y, fill=Site)) +
+  geom_point(aes( fill=Site, shape=Area), size = 2, alpha=0.75) +
+  geom_text_repel(data=centers13, aes(x=MeanX, y=MeanY, label=Site), color="black", fontface='bold', size=3)+
+  scale_fill_discrete(na.value = "white") + 
+  scale_shape_manual(values = c(21,24)) +
+  theme_bw()+
+  theme(panel.grid=element_blank())+
+  xlab(paste("PC1", " ", round((100*var[1]),2), "%", sep = ""))+
+  ylab(paste("PC3", " ", round((100*var[3]),2), "%", sep = ""))+
+  theme(legend.position = "")+
+  theme(plot.title = element_text(hjust = 0.5))
+
+
+
+ggarrange(pc12, pc13, ncol = 2)
 ```
 
 Examining relatedness.
@@ -246,51 +290,6 @@ ggplot(pck) +
   guides(fill = guide_legend(override.aes=list(shape=22))) 
 ```
 
-Plotting bigger
-
-```{r}
-sub12<-pck %>% filter( (PCx =="PC-01") & (PCy =="PC-02") )
-
-centers12<-sub12 %>% group_by(Site) %>% mutate(MeanX=mean(val_x), MeanY=mean(val_y)) %>% 
-  select(Site, MeanX, MeanY) %>% unique()
-
-
-pc12<-ggplot(sub12, aes(x = val_x, y = val_y)) +
-  geom_point(aes( fill=Site, shape=Area), size = 2, alpha=0.75) +
-  geom_text_repel(data=centers12, aes(x=MeanX, y=MeanY, label=Site), color="black", fontface='bold', size=3)+
-  scale_fill_discrete(na.value = "white") + 
-  scale_shape_manual(values = c(21,24)) +
-  theme_bw()+
-  theme(panel.grid=element_blank())+
-  xlab(paste("PC1", " ", round((100*vark[1]),2), "%", sep = ""))+
-  ylab(paste("PC2", " ", round((100*vark[2]),2), "%", sep = ""))+
-  theme(legend.position = "")+
-  ggtitle("Related Individuals Excluded PCs 1 & 2")+
-  theme(plot.title = element_text(hjust = 0.5))
-
-
-
-sub13<-pck %>% filter( (PCx =="PC-01") & (PCy =="PC-03") )
-centers13<-sub13 %>% group_by(Site) %>% mutate(MeanX=mean(val_x), MeanY=mean(val_y)) %>% select(Site, MeanX, MeanY) %>% unique()
-
-pc13<-ggplot(sub13, aes(x = val_x, y = val_y, fill=Site)) +
-  geom_point(aes( fill=Site, shape=Area), size = 2, alpha=0.75) +
-  geom_text_repel(data=centers13, aes(x=MeanX, y=MeanY, label=Site), color="black", fontface='bold', size=3)+
-  scale_fill_discrete(na.value = "white") + 
-  scale_shape_manual(values = c(21,24)) +
-  theme_bw()+
-  theme(panel.grid=element_blank())+
-  xlab(paste("PC1", " ", round((100*vark[1]),2), "%", sep = ""))+
-  ylab(paste("PC3", " ", round((100*vark[3]),2), "%", sep = ""))+
-  theme(legend.position = "")+
-  ggtitle("Related Individuals Excluded PCs 1 & 3")+
-  theme(plot.title = element_text(hjust = 0.5))
-
-
-
-ggarrange(pc12, pc13, ncol = 2)
-```
-
      
 ## Admix
 The K drops from 10 to 9 when omitting related individuals.
@@ -369,3 +368,150 @@ popsk2<-kk  %>% group_by(Site) %>% mutate(Start=min(Index), Stop=max(Index)) %>%
 kkplot
 ```
 
+## Finding Inbred Sites
+
+```{sh, eval=FALSE}
+srun -p high -t 01:00:00 python $HOME/pcangsd/pcangsd.py -beagle 0009/pca.beagle.gz -kinship -admix -o 0009/pca-kin -threads 10
+#Number of sites after MAF filtering (0.05): 14196
+
+#-inbreed 3
+python $HOME/pcangsd/pcangsd.py -beagle 0009/pca.beagle.gz -inbreedSites  -o 0009/inbreed  -minMaf 0.05 -threads 10
+
+python $HOME/pcangsd/pcangsd.py -beagle 0009/pca.beagle.gz -hwe 0009/inbreed.lrt.sites.npy -hwe_tole 1e-02 -admix -admix_K 2 -minMaf 0.05 -sites_save -o 0009/selection -threads 10
+#9742 sites used, saved at 0009/selection.sites at 0.1
+#13170 sites ussed at 0.05
+#13670 sites used at 0.05 and hwe_tole 1e-08
+#9241 sites used at 0.05 and hew_toler 1e-02
+
+python $HOME/pcangsd/pcangsd.py -beagle 0009/pca.beagle.gz -hwe 0009/inbreed.lrt.sites.npy -hwe_tole 1e-02 -admix -minMaf 0.05 -sites_save -o 0009/admix -threads 10
+#Estimating admixture with K=10, alpha=0, batch=10, seed=0
+
+```
+
+
+```{r}
+cov<-read_delim("0009/selection.cov", col_names=FALSE, delim=" ") %>% as.matrix()
+
+pca <- covar2pcs(meta$Label, cov)
+
+pca_long <- pca$PCs %>%
+  tidyr::gather(., key = "PC", "val", -sample)
+
+# then expand a grid of the possible comparisons (ordered)
+expg <- expand.grid(sample = pca$PCs$sample,
+                    PCx = sprintf("PC-%02d", 1:6),
+                    PCy = sprintf("PC-%02d", 1:6),
+                    stringsAsFactors = FALSE) %>%
+  tibble::as_tibble()
+
+# then left join the pca results onto that
+pca_pairs <- dplyr::left_join(expg, pca_long, by = c("sample", "PCx" = "PC")) %>%
+  dplyr::rename(val_x = val) %>%
+  dplyr::left_join(pca_long, by = c("sample", "PCy" = "PC")) %>%
+  dplyr::rename(val_y = val)
+
+npc <- 3
+pc <- pca_pairs %>%
+  filter( (PCx %in% sprintf("PC-%02d", 1:npc)) & 
+            (PCy %in% sprintf("PC-%02d", 1:npc)) ) %>%
+  left_join(., meta, by = c("sample" = "Label")) %>%
+  mutate(group = Location) 
+
+eig <- eigen(cov, symm = TRUE)
+var <-eig$values/sum(eig$values)
+cumvar <-cumsum(eig$values)/sum(eig$values)
+
+head(var)
+head(cumvar)
+```
+
+```{r}
+ggplot(pc) +
+  geom_point(aes(x=val_x, y=val_y, fill=Site, shape=Area), alpha=0.75) +
+  theme_bw() +
+  scale_shape_manual(values = c(21,24)) +
+  facet_grid(PCx ~ PCy) +
+  guides(fill = guide_legend(override.aes=list(shape=22))) 
+
+ggsave("0009/pc-sites.pdf", width=10, height=8)
+
+```
+
+```{r}
+sub12<-pc %>% filter( (PCx =="PC-01") & (PCy =="PC-02") )
+
+centers12<-sub12 %>% group_by(Site) %>% mutate(MeanX=mean(val_x), MeanY=mean(val_y)) %>% 
+  select(Site, MeanX, MeanY) %>% unique()
+
+
+pc12sites<-ggplot(sub12, aes(x = val_x, y = val_y)) +
+  geom_point(aes( fill=Site, shape=Area), size = 2, alpha=0.75) +
+  geom_text_repel(data=centers12, aes(x=MeanX, y=MeanY, label=Site), color="black", fontface='bold', size=3)+
+  scale_fill_discrete(na.value = "white") + 
+  scale_shape_manual(values = c(21,24)) +
+  theme_bw()+
+  theme(panel.grid=element_blank())+
+  xlab(paste("PC1", " ", round((100*vark[1]),2), "%", sep = ""))+
+  ylab(paste("PC2", " ", round((100*vark[2]),2), "%", sep = ""))+
+  theme(legend.position = "")+
+ # ggtitle("Related Individuals Excluded PCs 1 & 2")+
+  theme(plot.title = element_text(hjust = 0.5))
+
+
+
+sub13<-pc %>% filter( (PCx =="PC-01") & (PCy =="PC-03") )
+centers13<-sub13 %>% group_by(Site) %>% mutate(MeanX=mean(val_x), MeanY=mean(val_y)) %>% select(Site, MeanX, MeanY) %>% unique()
+
+pc13sites<-ggplot(sub13, aes(x = val_x, y = val_y, fill=Site)) +
+  geom_point(aes( fill=Site, shape=Area), size = 2, alpha=0.75) +
+  geom_text_repel(data=centers13, aes(x=MeanX, y=MeanY, label=Site), color="black", fontface='bold', size=3)+
+  scale_fill_discrete(na.value = "white") + 
+  scale_shape_manual(values = c(21,24)) +
+  theme_bw()+
+  theme(panel.grid=element_blank())+
+  xlab(paste("PC1", " ", round((100*vark[1]),2), "%", sep = ""))+
+  ylab(paste("PC3", " ", round((100*vark[3]),2), "%", sep = ""))+
+  theme(legend.position = "")+
+ # ggtitle("Related Individuals Excluded PCs 1 & 3")+
+  theme(plot.title = element_text(hjust = 0.5))
+
+ggarrange(pc12, pc13, pc12sites, pc13sites, ncol = 2, nrow=2)
+
+ggsave("0009/inbred-pcs.pdf", height=8, width=9)
+```
+
+Excluding inbred sites
+```{r}
+kk<-npyLoad("0009/admix.admix.Q.npy") %>% as_tibble() 
+#Need to rename all colnames smartly!
+colnames(kk)<-gsub("V","Q",colnames(kk))
+kk$Individual<-meta$Label
+kk$Site<-meta$Site
+kk$Area<-meta$Area
+kk <- kk %>% arrange(Site)
+kk<-mutate(kk, Index=1:n())
+qk<-kk %>% dplyr::select(Index, Site, Area, Individual, Q1, Q2, Q3, Q4, Q5, Q6, Q7, Q8, Q9, Q10) %>% 
+  gather(key=Ancestry, value=Q, 5:14)
+
+popsk2<-kk  %>% group_by(Site) %>% mutate(Start=min(Index), Stop=max(Index)) %>% 
+  select(Site,Start,Stop) %>% unique() %>% 
+  mutate(Position=round((Start+Stop)/2))
+
+  kkplot<-ggplot(qk) +
+  geom_col(aes(x=Index, y=Q, fill=Ancestry), color="NA", size = 0, width = 1)+
+  geom_segment(data=popsk2, x = popsk2$Start - 0.5, y=0, xend = popsk2$Start-0.5, yend=1, alpha=0.9, size=0.25) +
+  geom_segment(data=popsk2, x = popsk2$Stop[length(popsk2$Stop)]  + 0.5, y=0, xend= popsk2$Stop[length(popsk2$Stop)] + 0.5, yend=1,  alpha=0.9,
+               size=0.25) +
+  geom_segment(x=0, xend= popsk2$Stop[length(popsk2$Stop)], y=1, yend=1, alpha=0.9, size=0.25) +
+  theme(axis.text.x = element_text(angle=45, hjust=1)) +
+  ylim(0,1.01) +
+  xlim(-0.1, popsk2$Stop[length(popsk2$Stop)]+1) +
+  theme(panel.background = element_blank())+
+  scale_x_continuous(breaks=popsk2$Position, labels=popsk2$Site) +
+  xlab("") +
+    scale_fill_viridis_d(option="turbo")
+ # theme(axis.text.x = element_blank(), axis.ticks.x=element_blank()) +
+#  theme(legend.position = "NA") +
+
+kkplot
+```

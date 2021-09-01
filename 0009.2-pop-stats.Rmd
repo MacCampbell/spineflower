@@ -206,6 +206,7 @@ ggplot(data) +
   ylab("g2\n") 
 
 ggsave("0009/g2.png")
+ggsave("0009/g2.pdf")
   
 ```
 

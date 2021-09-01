@@ -14,6 +14,7 @@ library(tidyverse)
 library(vcfR)
 library(adegenet)
 library(reshape2)
+library(ggpubr)
 ```
 
 ## DAPC
@@ -70,15 +71,16 @@ pcdf<-pcdf %>% separate(Site, into=c("Area","Site"), sep=",", remove=FALSE)
 
 eigens<-as_tibble(pca1$eig) %>% rename(Eigen=value) %>% mutate(Porportion=Eigen/sum(Eigen)*100)
 
-ggplot(pcdf)+geom_point(aes(x=PC1, y=PC2, color=Site, shape=Area), alpha=0.75, size=2)+
+p1<-ggplot(pcdf)+geom_point(aes(x=PC1, y=PC2, color=Site, shape=Area), alpha=0.75, size=2)+
   xlab(paste0("PC1 ", round(eigens$Porportion[1],2),"%")) +
   ylab(paste0("PC2 ", round(eigens$Porportion[2],2),"%")) +
   theme_bw()+
   theme(panel.grid=element_blank()) +
   theme(axis.title = element_text(face="bold")) +
-  theme(legend.title = element_text(face="bold"))
+  theme(legend.title = element_text(face="bold")) +
+  theme(legend.position = "")
 
-ggplot(pcdf)+geom_point(aes(x=PC1, y=PC3, color=Site, shape=Area), alpha=0.75, size=2)+
+p2<-ggplot(pcdf)+geom_point(aes(x=PC1, y=PC3, color=Site, shape=Area), alpha=0.75, size=2)+
   xlab(paste0("PC1 ", round(eigens$Porportion[1],2),"%")) +
   ylab(paste0("PC3 ", round(eigens$Porportion[3],2),"%")) +
   theme_bw()+
@@ -87,13 +89,35 @@ ggplot(pcdf)+geom_point(aes(x=PC1, y=PC3, color=Site, shape=Area), alpha=0.75, s
   theme(legend.title = element_text(face="bold"))
 ```
 
+```{r}
+ggarrange(p1,p2, widths=c(1, 1.6))
+
+ggsave("0009/pca-genos.pdf", width=10, height=5)
+```
+
+
 ###DAPC
 
 ```{r}
 grp<-find.clusters(gen, n.pca = 175, n.clust = 3)
-
+```
+```{r}
 table(pop(gen), grp$grp)
 ```
+
+```{r}
+bic<-as_tibble(grp$Kstat) %>% rename(BIC=value) %>% mutate(K=1:n())
+
+ggplot(bic, aes(x=K, y=BIC)) +
+  scale_x_continuous(breaks=seq(1,18,1)) +
+  geom_line() +
+  theme_bw() + 
+  theme(panel.grid = element_blank()) +
+  theme(axis.title.y=element_text(face="bold", size=12)) +
+  theme(axis.title.x=element_text(face = "bold.italic", size=12))
+ggsave("0009/bicplot.jpeg")
+```
+
 ```{r}
 dft<-as.data.frame(table(pop(gen), grp$grp)) %>% as_tibble() %>%
   rename(Location=Var1, Assignment=Var2, Number=Freq)
@@ -112,11 +136,12 @@ ggplot(dft, aes(y=Location, x=Assignment)) +
   geom_text(aes(x=Assignment, y=Location, label=Number), color="white", size=3) +
   scale_size_area(limits=c(1,20), breaks=c(0,5,10,15,20))
 
+ggsave("0009/dapc-table.pdf")
 
 ```
 
 ```{r}
-dapc1 <- dapc(gen, grp$grp, n.pca=200, n.da=3)
+dapc1 <- dapc(gen, grp$grp, n.pca=175, n.da=3)
 
 scatter(dapc1)
 ```

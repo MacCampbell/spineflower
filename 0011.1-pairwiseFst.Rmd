@@ -1,0 +1,58 @@
+---
+title: "0011-pwfst"
+author: "Mac Campbell"
+date: "September 1, 2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message = FALSE)
+```
+
+```{r}
+library(tidyverse)
+```
+
+## Generate pairwise Fst
+Need SFS, so see 0011_calc_sfs
+See 0011_calc_pwfst.sh    
+
+```{r}
+meta<-read_csv("meta/182.csv") %>% separate(Location, into=c("Area","Site"), sep=",", remove=FALSE) 
+meta$Site<-trimws(meta$Site)
+meta$Site<-gsub(" ","_",meta$Site)
+meta<-meta %>%
+  mutate(ShortName=ifelse(Area=="Upper Las Virgenes Canyon OSP", "UVLC", Area)) %>%
+  mutate(Pop=paste0(ShortName,"-",Site))
+```
+
+Making individual pop bamlist
+
+```{r}
+poplist<-unique(meta$Pop)
+```
+
+```{r}
+WriteBamlist <- function (popname) {
+ popdf<-filter(meta, Pop==popname) %>% select(Path)
+ write_tsv(popdf, paste0("bamlists/",popname,".bamlist"), col_names = FALSE)
+}
+```
+
+```{r}
+lapply(poplist, WriteBamlist)
+```
+
+
+Group all, and then make big bamlists
+
+```{r}
+write_tsv(meta %>% filter(Area=="Upper Las Virgenes Canyon OSP") %>% select(Path), "bamlists/UVLC.bamlist", col_names = FALSE)
+write_tsv(meta %>% filter(Area=="Newhall") %>% select(Path), "bamlists/Newhall.bamlist", col_names = FALSE)
+```
+
+Making a poplist.
+```{r}
+pops<-c(poplist, "UVLC","Newhall") %>% as_tibble()
+write_tsv(pops, file = "meta/poplist", col_names = FALSE)
+```
