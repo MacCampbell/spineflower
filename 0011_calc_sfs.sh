@@ -8,7 +8,7 @@ wc=$(wc -l meta/poplist | awk '{print $1}')
 x=1
 while [ $x -le $wc ]
 do
-	string="sed -n ${x}p metadata/poplist2"
+	string="sed -n ${x}p meta/poplist"
 	str=$($string)
 
 	var=$(echo $str | awk -F"\t" '{print $1}')
