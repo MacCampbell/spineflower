@@ -56,3 +56,6 @@ Making a poplist.
 pops<-c(poplist, "UVLC","Newhall") %>% as_tibble()
 write_tsv(pops, file = "meta/poplist", col_names = FALSE)
 ```
+
+Running 0011_calc_sfs.sh
+

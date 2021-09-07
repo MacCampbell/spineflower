@@ -38,7 +38,7 @@ mInd=\$((\${nInd}/2))
 angsd -b bamlists/${pop}.bamlist -anc 1003_stacks/catalog.fa -ref 1003_stacks/catalog.fa -out 0011/${pop} -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -baq 2 -GL 1 -doMajorMinor 1 -doMaf 1 -minInd $mInd -nind $nInd -minMapQ 10 -minQ 20 -doSaf 2 -nThreads 8 -rf 0009/sites
 realSFS 0011/${pop}.saf.idx > 0011/${pop}.sfs
 
-Rscript scripts/plotSFS.R 0011/${pop}.sfs
+Rscript 1000_scripts/plotSFS.R 0011/${pop}.sfs
 " > sfs_${pop}.sh
 
 sbatch sfs_${pop}.sh

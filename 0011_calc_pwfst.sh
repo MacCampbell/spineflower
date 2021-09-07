@@ -28,11 +28,11 @@ echo "#!/bin/bash
 #SBATCH --output=0011/${pop1}_${pop2}-%j.slurmout
 #############################################
 
-#realSFS sfs/${pop1}.saf.idx sfs/${pop2}.saf.idx > sfs/${pop1}_${pop2}.2dsfs
-Rscript scripts/plot2DSFS_2D.R sfs/${pop1}_${pop2}.2dsfs \$(wc -l sfs/${pop1}.bamlist | awk '{print \$1}') \$(wc -l sfs/${pop2}.bamlist | awk '{print \$1}') $pop1 $pop2
-#Rscript scripts/plot2dSFS.R sfs/${pop1}_${pop2}.2dsfs sfs/${pop1}_${pop2}.2dsfs.pdf ${pop1} ${pop2}
-#realSFS fst index sfs/${pop1}.saf.idx sfs/${pop2}.saf.idx -sfs sfs/${pop1}_${pop2}.2dsfs -fstout 0011/${pop1}_${pop2} 
-#realSFS fst stats 0011/${pop1}_${pop2}.fst.idx > 0011/${pop1}_${pop2}.fst.stats
+realSFS 0011/${pop1}.saf.idx 0011/${pop2}.saf.idx > 0011/${pop1}_${pop2}.2dsfs
+#Rscript scripts/plot2DSFS_2D.R 0011/${pop1}_${pop2}.2dsfs \$(wc -l 0011/${pop1}.bamlist | awk '{print \$1}') \$(wc -l 0011/${pop2}.bamlist | awk '{print \$1}') $pop1 $pop2
+#Rscript scripts/plot2dSFS.R 0011/${pop1}_${pop2}.2dsfs 0011/${pop1}_${pop2}.2dsfs.pdf ${pop1} ${pop2}
+realSFS fst index 0011/${pop1}.saf.idx 0011/${pop2}.saf.idx -sfs 0011/${pop1}_${pop2}.2dsfs -fstout 0011/${pop1}_${pop2} 
+realSFS fst stats 0011/${pop1}_${pop2}.fst.idx > 0011/${pop1}_${pop2}.fst.stats
 " > fst_${pop1}_${pop2}.sh
 
 #sbatch fst_${pop1}_${pop2}.sh
@@ -45,4 +45,4 @@ done
 #hold til complete
 grep "" 0011/*fst.stats | sed 's/.fst.stats:/      /' | sed 's:0011/::' |  tr "_" "\t" | awk '{print $1"_"$2"_"$3"\t"$4"_"$5"_"$6"\t"$8}' > 0011/pwfst.all
 
-scripts/pwlist_to_matrix.pl 0011/pwfst.all > 0011/pwfst.fstmatrix
+1000_scripts/pwlist_to_matrix.pl 0011/pwfst.all > 0011/pwfst.fstmatrix

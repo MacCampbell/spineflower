@@ -3,7 +3,7 @@
 args = commandArgs(trailingOnly = TRUE)
 
 F1 = args[1]
-F2 = paste("0011/",F1, ".pdf", sep="")
+F2 = paste(F1, ".pdf", sep="")
 
 #function to normalize
 norm <- function(x) x/sum(x)
