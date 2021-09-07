@@ -35,7 +35,7 @@ realSFS fst index 0011/${pop1}.saf.idx 0011/${pop2}.saf.idx -sfs 0011/${pop1}_${
 realSFS fst stats 0011/${pop1}_${pop2}.fst.idx > 0011/${pop1}_${pop2}.fst.stats
 " > fst_${pop1}_${pop2}.sh
 
-#sbatch fst_${pop1}_${pop2}.sh
+sbatch fst_${pop1}_${pop2}.sh
 rm fst_${pop1}_${pop2}.sh
 
 x=$(( $x + 1 ))

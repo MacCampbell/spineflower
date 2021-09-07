@@ -59,3 +59,4 @@ write_tsv(pops, file = "meta/poplist", col_names = FALSE)
 
 Running 0011_calc_sfs.sh
 
+Running 0011_calc_pwfst.sh
