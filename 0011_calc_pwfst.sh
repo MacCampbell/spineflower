@@ -23,7 +23,7 @@ echo "#!/bin/bash
 #SBATCH --job-name=fst${x}
 #SBATCH -n 8
 #SBATCH -N 1
-#SBATCH --partition=med
+#SBATCH --partition=high
 #SBATCH --time=48:00:00
 #SBATCH --output=0011/${pop1}_${pop2}-%j.slurmout
 #############################################
