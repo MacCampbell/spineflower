@@ -117,7 +117,7 @@ ggsave("0009/pca-genos.pdf", width=10, height=5)
 ###DAPC
 
 ```{r}
-grp<-find.clusters(gen, n.pca = 175) # n.clust = 2)
+grp<-find.clusters(gen, n.pca = 150)#, n.clust = 2)
 ```
 
 ```{r}
@@ -146,6 +146,8 @@ save(BIC, file="0009/bic.rda")
 dft<-as.data.frame(table(pop(gen), grp$grp)) %>% as_tibble() %>%
   rename(Location=Var1, Assignment=Var2, Number=Freq)
 dft$Location<-gsub("Upper Las Virgenes Canyon OSP,","UVLC",dft$Location)
+dft$Location<-factor(dft$Location)
+#dft$Location<-reorder(dft$Location, desc(dft$Location))
 table<-ggplot(dft, aes(y=Location, x=Assignment)) +
   theme(axis.title.y = element_text(size = rel(2))) +
   theme(axis.title.x = element_text(size = rel(2))) +
@@ -156,9 +158,12 @@ table<-ggplot(dft, aes(y=Location, x=Assignment)) +
 #  theme(text=element_text(family='Times')) +
   theme(axis.text.x= element_text(face="bold", size=10, vjust = 0.5)) +
   theme(axis.text.y= element_text(face="bold", size=10)) +
-  geom_point(aes(x=Assignment, y=Location, size=Number)) +
+  geom_point(aes(x=Assignment, y=Location, size=Number, color=Location)) +
   geom_text(aes(x=Assignment, y=Location, label=Number), color="white", size=3) +
-  scale_size_area(limits=c(1,20), breaks=c(0,5,10,15,20))
+  scale_size_area(limits=c(1,20), breaks=c(0,5,10,15,20)) +
+  theme(legend.position = "") +
+  scale_y_discrete(breaks = rev(levels(dft$Location)))
+
 
 table
 
@@ -167,7 +172,13 @@ save(table, file="0009/table.rda")
 ```
 
 ```{r}
-dapc1 <- dapc(gen, grp$grp, n.pca=175, n.da=3)
+dapc1 <- dapc(gen, grp$grp, n.pca=150, n.da=4)
 
 scatter(dapc1)
+```
+```{r}
+post<-dapc1$posterior %>% as_tibble()
+post$Group<-grp$grp
+sumposts<-post %>% group_by(Group) %>% summarize_all(mean)
+sumposts
 ```

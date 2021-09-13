@@ -36,8 +36,6 @@ comb<-bind_cols(samples, stats)
 ```
 
 
-There are some optional parents to include, but I don't know what are possible parents and which aren't. Sounds like some unknown parents are ok, I also need to get known fathers/mothers sorted.
-
 ```{r}
 write_tsv(comb, "0010/parentage-read-counts.tsv")
 highrollers<-comb %>% filter(DedupReads > 40000)
@@ -45,7 +43,7 @@ write_tsv(highrollers, file="0010/highrollers.txt")
 ```
 
 ```{r}
-seq<-read_tsv("0010/toGenotype.txt")
+seq<-read_tsv("0010/highrollers.txt")
 ```
 
 Create a bamlist: 0010/concat_AM6-P_sorted_proper_rmdup.bam
@@ -61,26 +59,27 @@ Following https://ryanpeek.org/radseq/pipeline_colony.html#outline:_the_bare_bon
 
 `~/bin/angsd -bam $list -GL 1 -out $output -doMaf 2 -minInd 20 -doMajorMinor 1 -SNP_pval 0.000001 -doGeno 4 -doPost 2 -postCutoff 0.95 -minMaf 0.005`
 
+We have 31 samples of P & O
+
 ```{sh, eval=FALSE}
 srun -p high -t 48:00:00 --nodes=2 $HOME/angsd/angsd -P 12 -bam bamlists/parentage.bamlist -GL 1 \
--out 0010/parentage -doMaf 2 -minInd 22 -rf 0007/nonparalogous-contigs.tsv \
--doMajorMinor 1 -SNP_pval 1e-2 -doGeno 4 -doPost 2 -postCutoff 0.95 -minMaf 0.005 -minMapQ 10 -minQ 20 > 0010/parentage.stdout 2> 0010/parentage.stderr &
+-out 0010/parentage -doMaf 2 -minInd 28 -rf 0007/nonparalogous-contigs.tsv \
+-doMajorMinor 1 -SNP_pval 1e-6 -doGeno 4 -doPost 2 -postCutoff 0.95 -minMaf 0.005 -minMapQ 10 -minQ 20 > 0010/parentage.stdout 2> 0010/parentage.stderr &
 ```
 
-We have 5017 snps.
+We have xxxx snps.
 
-Great, ryanpeek.org is down.    
 
 gunzip parentage.geno.gz
 
 Drawing 300 snps with a min maf of 0.25.
 ```{sh}
-(base) maccamp@farm:~/spineflower/0010$ ../1000_scripts/Geno2Colony.pl  parentage.geno ../bamlists/parentage.bamlist > colony.input
+ ../1000_scripts/Geno2Colony.pl  parentage.geno ../bamlists/parentage.bamlist > colony.input
  cat colony.input |  perl -pe 's/0010\/concat_//g' > colony-2.input
  head -n 4 colony.input > markers
- base) maccamp@farm:~/spineflower/0010$ grep "O_sorted" colony-2.input  >offspring
-(base) maccamp@farm:~/spineflower/0010$ grep "P_sorted" colony-2.input  >parents
-(
+grep "O_sorted" colony-2.input  >offspring
+grep "P_sorted" colony-2.input  >parents
+
 ```
 
 Need a header/footer
@@ -104,14 +103,27 @@ printf '2 %.0s' {1..300} > allele.counts
 Need the frequency of each allele per locus.... 
 Wrote count.pl; now I need to get the alleles from the colony.dat file...
 
-Working grep: grep "19111\s351"  parentage.geno     
-(base) maccamp@farm:~/spineflower/0010$ head -n 1 colony.input | perl -pe 's/\s+/\n/g' | perl -pe 's/_/\\s/g' >> snps.txt
-(base) maccamp@farm:~/spineflower/0010$ cat snps.txt | perl -pe 's/^(.)/grep "^$1/g' | perl -pe 's/(.)$/$1\\s" parentage.geno >> snps.geno/g' > snps-commands.sh
+Working grep: grep "19111\s351"  parentage.geno 
 
+```{sh, eval=FALSE}
+rm snps.txt
+head -n 1 colony.input | perl -pe 's/\s+/\n/g' | perl -pe 's/_/\\s/g' >> snps.txt
+cat snps.txt | perl -pe 's/^(.)/grep "^$1/g' | perl -pe 's/(.)$/$1\\s" parentage.geno >> snps.geno/g' > snps-commands.sh
+rm snps.geno 
+bash snps-commands.sh
 ./count.pl snps.geno > tallies.txt
-Turns out count.pl doesn't work when Major AF = Minor AF
+```
 
-  `(base) maccamp@farm:~/spineflower/0010$ cat header.txt space.txt allele.counts space.txt tallies.txt space.txt block.txt markers space.txt offspring probs space.txt parents space.txt parents space.txt options  > spineflower.dat`    
+Turns out count.pl doesn't work when Major AF = Minor AF
+```{sh, eval=FALSE}
+grep "0.5\s" -n  tallies.txt 
+```
+462:	0.5	0.5
+462/2=231 should be 2/3 in this example cut -f 233 parents
+
+```{sh, eval=FALSE}
+cat header.txt space.txt allele.counts space.txt tallies.txt space.txt block.txt markers space.txt offspring probs space.txt parents space.txt parents space.txt options  > spineflower.dat    
+```
 
 ```{sh}
 srun -p high -t 24:00:00 $HOME/colony/colony2s.ifort.out IFN:./spineflower.dat > colony-program.out 2> colony-program.stderr &

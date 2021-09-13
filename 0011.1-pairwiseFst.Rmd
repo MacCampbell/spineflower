@@ -105,7 +105,7 @@ fst<-ggplot(drop_na(fstdat), aes(Pop2, Pop1)) +
   theme(plot.title = element_text(face="bold", size=16)) +
   labs(fill = "Fst")
 
-fst
+fst + geom_text(aes(label = round(FstWeighted, 2)), size=2, colour = "white") 
 
 ggsave("0011/fstplot.jpg")
 ```
@@ -138,7 +138,11 @@ Columns are Pop	Chr	tW	tP	Tajima
 ```{r}
 theta<-read_tsv("0011/diversity.all", col_names = c("Pop","Chr","tW","tP", "Tajima")) %>% filter(tW < 5) %>% filter(tP < 5) %>%
   filter(Pop !="Newhall") %>% filter(Pop != "UVLC")
+theta %>% select(-Chr) %>% group_by(Pop) %>% summarize_all(mean)
+```
 
+
+```{r}
 pi <- ggplot(theta, aes(x=Pop, y=tP)) + 
   stat_boxplot(geom ='errorbar') +
   geom_boxplot(aes(fill=Pop), notch=FALSE, outlier.size=0.5, outlier.stroke = 0, outlier.alpha=0.5) + 

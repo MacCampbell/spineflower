@@ -56,4 +56,10 @@ contiglist<-sites2 %>% select(Sequence) %>% unique() %>% mutate(Chroms=paste0(Se
 write_tsv(contiglist, "0007/nonparalogous-contigs.tsv", col_names = FALSE)
 ```
 
+## Pulling out reduced reference
+in 0007    
 
+```{sh, eval=FALSE}
+~/spineflower/0007$ xargs samtools faidx ../1003_stacks/catalog.fa 3 < nonparalogous-contigs.tsv > reduced.fa
+
+```
