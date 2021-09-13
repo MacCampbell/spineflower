@@ -11,6 +11,11 @@ knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message = FALSE)
 
 ```{r}
 library(tidyverse)
+library(viridis)
+library(ggpubr)
+library(cowplot)
+library(grid)
+library(gridExtra)
 ```
 
 ## Generate pairwise Fst
@@ -63,6 +68,127 @@ Running 0011_calc_pwfst.sh
 
 Did something like this with relict dace. Thanks, Iso!   
 
-```{r}
+From the docs:
+    
+../misc/realSFS fst stats here.fst.idx     
+-> FST.Unweight:0.069395 Fst.Weight:0.042349
 
+```{r}
+dat<-read_tsv("0011/pwfst.all", col_names = c("Pop1","Pop2","FstUnweighted","FstWeighted")) 
+fstdat<-drop_na(dat)
+
+```
+
+```{r}
+fstdat$Pop1<-factor(fstdat$Pop1, levels=poplist)
+fstdat$Pop2<-factor(fstdat$Pop2, levels=poplist)
+
+```
+
+
+```{r}
+size=6
+```
+
+```{r}
+fst<-ggplot(drop_na(fstdat), aes(Pop2, Pop1)) + 
+  geom_tile(aes(fill = FstWeighted), color="white") + 
+  theme_minimal() + 
+  scale_fill_viridis(discrete=FALSE, option = "cividis", space = "Lab", direction = -1) + 
+  theme_bw() + 
+  theme(axis.text.x=element_text(angle=45,vjust=1,size=size,hjust=1), panel.border=element_blank(),
+        panel.grid.major=element_blank(), axis.title.y = element_blank(),
+        axis.title.x = element_blank()) + scale_y_discrete(position = "left") + 
+  theme(axis.text.y=element_text(size=size)) +
+ # geom_text(aes(label = round(FstWeighted, 2)), size=2, colour = "white") + 
+  ggtitle("A") + 
+  theme(plot.title = element_text(face="bold", size=16)) +
+  labs(fill = "Fst")
+
+fst
+
+ggsave("0011/fstplot.jpg")
+```
+
+
+Following 0011_calc_sfs.sh we can use this command for each pop do generate a sfs.
+
+./misc/realSFS saf2theta out.saf.idx -outname out -sfs out.sfs
+
+(base) maccamp@farm:~/spineflower/0011$ realSFS saf2theta Newhall-Entrada.saf.idx -outname Newhall-Entrada -sfs Newhall-Entrada.sfs
+
+Estimating for each scaffold/chromosome ./misc/thetaStat do_stat out.thetas.idx:    
+
+(base) maccamp@farm:~/spineflower/0011$ thetaStat do_stat Newhall-Entrada.thetas.idx (1283 entries.)
+
+```{sh, eval=FALSE}
+cat meta/poplist | while read pop; do realSFS saf2theta 0011/$pop.saf.idx -outname $pop -sfs 0011/$pop.sfs; thetaStat do_stat 0011/$pop.thetas.idx; done;
+
+mv *thetas* ./0011
+
+# we want to combine pestPG files
+grep "" 0011/*pestPG | sed 's/.thetas.idx.pestPG:/\t/' | sed 's:0011/::'
+
+| perl -pe 's/_-_/\t/g' > 0011/diversity.all
+```
+
+Columns are Pop	Chr	tW	tP	Tajima
+
+
+```{r}
+theta<-read_tsv("0011/diversity.all", col_names = c("Pop","Chr","tW","tP", "Tajima")) %>% filter(tW < 5) %>% filter(tP < 5) %>%
+  filter(Pop !="Newhall") %>% filter(Pop != "UVLC")
+
+pi <- ggplot(theta, aes(x=Pop, y=tP)) + 
+  stat_boxplot(geom ='errorbar') +
+  geom_boxplot(aes(fill=Pop), notch=FALSE, outlier.size=0.5, outlier.stroke = 0, outlier.alpha=0.5) + 
+  labs(y = "Theta Pi") + 
+  labs(x="") +
+  theme_bw() +
+#  scale_y_continuous(breaks=seq(0.00,0.05,0.0025)) + 
+  ggtitle(label = "B") +
+  theme(plot.title = element_text(face="bold", size=16)) +
+  theme(panel.grid = element_blank()) +
+  theme(legend.position = "") +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1), axis.title.x=element_blank()) +
+  theme(axis.text.x = element_text(size=size))
+
+pi
+```
+
+```{r}
+ggarrange(fst, pi, ncol=2, nrow=1, widths=c(1.5,1))
+
+ggsave("0011/fst-pi.jpg", width=11, height=8.5/2)
+```
+
+## Four panel figure
+
+```{r}
+load("0009/bic.rda")
+load("0009/table.rda")
+blank <- grid.rect(gp=gpar(col="white"))
+```
+
+
+```{r}
+BIC<- BIC + ggtitle(label = "A") +
+  theme(plot.title = element_text(face="bold", size=16)) 
+table<-table+theme(axis.title.y=element_blank()) +   ggtitle(label = "B") +
+  theme(plot.title = element_text(face="bold", size=16))  +
+  theme(axis.title.x = element_text(size=12)) +
+  theme(axis.text.y = element_text(face="plain")) +
+  theme(legend.position = "")
+ab<-ggarrange(arrangeGrob(blank,BIC,blank, ncol=3, widths=c(1,3,1)), blank,table, ncol=1, nrows=3, heights=c(2,.5,5))
+ab
+ggsave("0011/figure.jpg", width=11/2, height=8.5)
+```
+
+```{r}
+cd<-ggarrange(fst+ggtitle(label="C"), pi+ggtitle(label="D"), ncol=1, nrow=2)
+```
+
+```{r}
+ggarrange(ab,cd)
+ggsave("0011/figurex.jpg", width=11, height=8.5)
 ```

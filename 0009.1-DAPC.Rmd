@@ -15,6 +15,7 @@ library(vcfR)
 library(adegenet)
 library(reshape2)
 library(ggpubr)
+library(ggrepel)
 ```
 
 ## DAPC
@@ -66,31 +67,48 @@ plot(pca1$li)
 
 ```{r}
 pcdf<-as_tibble(pca1$l1) %>% rename(PC1=RS1, PC2=RS2, PC3=RS3)
-pcdf$Site<-pop(gen)
-pcdf<-pcdf %>% separate(Site, into=c("Area","Site"), sep=",", remove=FALSE)
+pcdf$Collection<-pop(gen)
+
+
+pcdf<-pcdf %>% separate(Collection, into=c("Area","Site"), sep=", ", remove=FALSE) %>% arrange(Collection)
 
 eigens<-as_tibble(pca1$eig) %>% rename(Eigen=value) %>% mutate(Porportion=Eigen/sum(Eigen)*100)
 
-p1<-ggplot(pcdf)+geom_point(aes(x=PC1, y=PC2, color=Site, shape=Area), alpha=0.75, size=2)+
+p1<-ggplot(pcdf)+geom_point(aes(x=PC1, y=PC2, fill=Collection, shape=Area), alpha=0.75, size=2)+
   xlab(paste0("PC1 ", round(eigens$Porportion[1],2),"%")) +
   ylab(paste0("PC2 ", round(eigens$Porportion[2],2),"%")) +
   theme_bw()+
   theme(panel.grid=element_blank()) +
   theme(axis.title = element_text(face="bold")) +
   theme(legend.title = element_text(face="bold")) +
-  theme(legend.position = "")
+  theme(legend.position = "") +
+  scale_shape_manual(values=c(21,24)) 
 
-p2<-ggplot(pcdf)+geom_point(aes(x=PC1, y=PC3, color=Site, shape=Area), alpha=0.75, size=2)+
+p2<-ggplot(pcdf)+geom_point(aes(x=PC1, y=PC3, fill=Collection, shape=Area), alpha=0.75, size=2)+
   xlab(paste0("PC1 ", round(eigens$Porportion[1],2),"%")) +
   ylab(paste0("PC3 ", round(eigens$Porportion[3],2),"%")) +
   theme_bw()+
   theme(panel.grid=element_blank()) +
   theme(axis.title = element_text(face="bold")) +
-  theme(legend.title = element_text(face="bold"))
+  theme(legend.title = element_text(face="bold")) +
+  scale_shape_manual(values=c(21,24)) +
+  scale_fill_discrete(labels=unique(pcdf$Site), guide = guide_legend(override.aes = list(shape=c(22))))
 ```
 
 ```{r}
-ggarrange(p1,p2, widths=c(1, 1.6))
+pop6<-pcdf %>% filter(Site=="Pop 6") %>% mutate(m1=mean(PC1), m2=mean(PC2), m3=mean(PC3)) %>% select(Site, m1, m2, m3) %>% unique()
+
+p1l<-p1 + geom_text_repel(data=pop6, aes(x=m1, y=m2, label=Site), size=4, fontface="bold")
+```
+
+```{r}
+newhalls<-pcdf %>% filter(Site %in% c("Lion Canyon","Entrada","Pop 6")) %>% group_by(Site) %>% mutate(m1=mean(PC1), m2=mean(PC2), m3=mean(PC3)) %>% select(Site, m1, m2, m3) %>% unique()
+
+p2l<-p2 + geom_text_repel(data=newhalls, aes(x=m1, y=m3, label=Site), size=4, fontface="bold")
+```
+
+```{r}
+ggarrange(p1l,p2l, widths=c(1, 1.6))
 
 ggsave("0009/pca-genos.pdf", width=10, height=5)
 ```
@@ -99,45 +117,53 @@ ggsave("0009/pca-genos.pdf", width=10, height=5)
 ###DAPC
 
 ```{r}
-grp<-find.clusters(gen, n.pca = 175, n.clust = 3)
+grp<-find.clusters(gen, n.pca = 175) # n.clust = 2)
 ```
+
 ```{r}
 table(pop(gen), grp$grp)
 ```
 
 ```{r}
-bic<-as_tibble(grp$Kstat) %>% rename(BIC=value) %>% mutate(K=1:n())
+bic<-as_tibble(grp$Kstat) %>% rename(BIC=value) %>% mutate(K=1:n()) %>% filter(K<=6)
 
-ggplot(bic, aes(x=K, y=BIC)) +
-  scale_x_continuous(breaks=seq(1,18,1)) +
+BIC<-ggplot(bic, aes(x=K, y=BIC)) +
+  scale_x_continuous(breaks=seq(1,6,1), limits =c(1,6)) +
+  ylim(min(bic$BIC), max(bic$BIC)) + 
   geom_line() +
   theme_bw() + 
   theme(panel.grid = element_blank()) +
   theme(axis.title.y=element_text(face="bold", size=12)) +
-  theme(axis.title.x=element_text(face = "bold.italic", size=12))
+  theme(axis.title.x=element_text(face = "bold.italic", size=12)) 
+
+BIC
 ggsave("0009/bicplot.jpeg")
+save(BIC, file="0009/bic.rda")
+
 ```
 
 ```{r}
 dft<-as.data.frame(table(pop(gen), grp$grp)) %>% as_tibble() %>%
   rename(Location=Var1, Assignment=Var2, Number=Freq)
-
-ggplot(dft, aes(y=Location, x=Assignment)) +
+dft$Location<-gsub("Upper Las Virgenes Canyon OSP,","UVLC",dft$Location)
+table<-ggplot(dft, aes(y=Location, x=Assignment)) +
   theme(axis.title.y = element_text(size = rel(2))) +
   theme(axis.title.x = element_text(size = rel(2))) +
   theme(axis.text.x = element_text(angle = 90)) +
   labs(x="\nInferred Group", y="Sampling Location\n") +
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "black")) +
-  theme(text=element_text(family='Times')) +
+#  theme(text=element_text(family='Times')) +
   theme(axis.text.x= element_text(face="bold", size=10, vjust = 0.5)) +
   theme(axis.text.y= element_text(face="bold", size=10)) +
   geom_point(aes(x=Assignment, y=Location, size=Number)) +
   geom_text(aes(x=Assignment, y=Location, label=Number), color="white", size=3) +
   scale_size_area(limits=c(1,20), breaks=c(0,5,10,15,20))
 
-ggsave("0009/dapc-table.pdf")
+table
 
+ggsave("0009/dapc-table.pdf")
+save(table, file="0009/table.rda")
 ```
 
 ```{r}

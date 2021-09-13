@@ -43,6 +43,9 @@ done
 
 
 #hold til complete
-grep "" 0011/*fst.stats | sed 's/.fst.stats:/      /' | sed 's:0011/::' |  tr "_-_" "\t" | awk '{print $1"_"$2"_"$3"\t"$4"_"$5"_"$6"\t"$8}' > 0011/pwfst.all
+#grep "" 0011/*fst.stats | sed 's/.fst.stats:/      /' | sed 's:0011/::' |  tr "_-_" "\t" | awk '{print $1"_"$2"_"$3"\t"$4"_"$5"_"$6"\t"$8}' > 0011/pwfst.all
+
+#Changed by Mac to accomodate different delimiter
+grep "" 0011/*fst.stats | sed 's/.fst.stats:/\t/' | sed 's:0011/::' | perl -pe 's/_-_/\t/g' > 0011/pwfst.all
 
 1000_scripts/pwlist_to_matrix.pl 0011/pwfst.all > 0011/pwfst.fstmatrix
